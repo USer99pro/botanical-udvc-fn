@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verdant Wisdom - Mobile Menu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&amp;family=Hanken+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"tertiary-fixed-dim": "#e2c290", "on-error": "#ffffff", "on-surface": "#1b1c19", "surface-tint": "#4d6453", tertiary: "#221500", "on-tertiary-container": "#ab8e61", surface: "#fbf9f4", "surface-dim": "#dbdad5", "on-tertiary": "#ffffff", secondary: "#426920", error: "#ba1a1a", "on-secondary-fixed": "#0c2000", "on-surface-variant": "#434843", background: "#fbf9f4", "secondary-fixed": "#c2f198", "on-tertiary-fixed": "#271900", "surface-container-highest": "#e4e2dd", "on-secondary-container": "#466d24", "error-container": "#ffdad6", "on-error-container": "#93000a", "primary-fixed": "#d0e9d4", "on-tertiary-fixed-variant": "#59431c", "surface-container": "#f0eee9", "outline-variant": "#c3c8c1", "on-secondary": "#ffffff", primary: "#061b0e", "surface-container-high": "#eae8e3", "tertiary-container": "#3b2804", "surface-container-lowest": "#ffffff", "on-primary": "#ffffff", "inverse-primary": "#b4cdb8", "primary-fixed-dim": "#b4cdb8", "on-background": "#1b1c19", "inverse-on-surface": "#f2f1ec", outline: "#737973", "on-primary-container": "#819986", "secondary-container": "#bfee95", "on-secondary-fixed-variant": "#2b5008", "inverse-surface": "#30312e", "surface-bright": "#fbf9f4", "on-primary-fixed": "#0b2013", "primary-container": "#1b3022", "surface-container-low": "#f5f3ee", "surface-variant": "#e4e2dd", "tertiary-fixed": "#ffdeab", "secondary-fixed-dim": "#a6d47e", "on-primary-fixed-variant": "#364c3c"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "64px", "section-gap": "120px", unit: "8px", "container-max": "1280px", gutter: "24px", "margin-mobile": "20px"}, fontFamily: {"label-sm": ["Hanken Grotesk"], "body-lg": ["Hanken Grotesk"], "headline-md": ["EB Garamond"], "display-lg": ["EB Garamond"], "body-md": ["Hanken Grotesk"], "headline-sm": ["EB Garamond"], "display-lg-mobile": ["EB Garamond"], "label-md": ["Hanken Grotesk"], headline: ["EB Garamond"], display: ["EB Garamond"], body: ["Hanken Grotesk"], label: ["Hanken Grotesk"]}, fontSize: {"label-sm": ["12px", {lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "500"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "headline-md": ["32px", {lineHeight: "40px", fontWeight: "500"}], "display-lg": ["56px", {lineHeight: "64px", letterSpacing: "-0.02em", fontWeight: "500"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-sm": ["24px", {lineHeight: "32px", fontWeight: "600"}], "display-lg-mobile": ["40px", {lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "500"}], "label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600"}]}}}};</script>
+<style>
+        .leaf-watermark {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0C50 0 20 20 20 50C20 80 50 100 50 100C50 100 80 80 80 50C80 20 50 0 50 0Z' fill='%231b3022' fill-opacity='0.03'/%3E%3C/svg%3E");
+            background-size: 200px;
+            background-repeat: repeat;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-hidden">
+<!-- Screen Mockup Wrapper for Context -->
+<div class="relative w-full h-screen max-w-md mx-auto bg-surface-dim overflow-hidden shadow-2xl md:my-10 md:rounded-[40px] md:h-[850px] border-8 border-surface-container-highest">
+<!-- Dummy Content Behind Menu -->
+<div class="p-6">
+<header class="flex justify-between items-center mb-10">
+<div class="font-display-lg-mobile text-headline-sm text-primary">Verdant Wisdom</div>
+<button class="p-2 text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</header>
+<div class="space-y-6">
+<div class="h-48 bg-surface-container rounded-xl flex items-center justify-center text-on-surface-variant font-label-md">Background Content</div>
+<div class="h-32 bg-surface-container rounded-xl flex items-center justify-center text-on-surface-variant font-label-md">Background Content</div>
+</div>
+</div>
+<!-- Overlay -->
+<div aria-hidden="true" class="absolute inset-0 bg-primary/20 backdrop-blur-sm z-40"></div>
+<!-- Slide-out Drawer (Active State) -->
+<nav class="absolute top-0 right-0 h-full w-4/5 max-w-sm bg-surface/95 backdrop-blur-md z-50 shadow-[-8px_0_24px_rgba(27,48,34,0.1)] flex flex-col leaf-watermark transform transition-transform duration-300 translate-x-0">
+<!-- Header -->
+<div class="flex justify-between items-center p-6 border-b border-surface-container">
+<span class="font-display-lg-mobile text-headline-sm text-primary">Menu</span>
+<button aria-label="Close Menu" class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 overflow-y-auto px-6 py-8 space-y-2">
+<a class="flex items-center group py-4" href="#">
+<span class="font-headline-sm text-headline-sm text-primary border-b-2 border-secondary font-bold pb-1 w-full flex items-center justify-between">
+                        Collections
+                        <span class="material-symbols-outlined opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-secondary" data-icon="arrow_forward">arrow_forward</span>
+</span>
+</a>
+<a class="flex items-center group py-4" href="#">
+<span class="font-headline-sm text-headline-sm text-on-surface-variant hover:text-primary transition-colors w-full flex items-center justify-between">
+                        Botanical History
+                        <span class="material-symbols-outlined opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-secondary" data-icon="arrow_forward">arrow_forward</span>
+</span>
+</a>
+<a class="flex items-center group py-4" href="#">
+<span class="font-headline-sm text-headline-sm text-on-surface-variant hover:text-primary transition-colors w-full flex items-center justify-between">
+                        Garden Map
+                        <span class="material-symbols-outlined opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-secondary" data-icon="arrow_forward">arrow_forward</span>
+</span>
+</a>
+<a class="flex items-center group py-4" href="#">
+<span class="font-headline-sm text-headline-sm text-on-surface-variant hover:text-primary transition-colors w-full flex items-center justify-between">
+                        Visit Us
+                        <span class="material-symbols-outlined opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-secondary" data-icon="arrow_forward">arrow_forward</span>
+</span>
+</a>
+</div>
+<!-- Footer Actions -->
+<div class="p-6 bg-surface-container-low/50 border-t border-surface-container space-y-6">
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-4 px-6 rounded-full hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="card_membership">card_membership</span>
+                    Membership
+                </button>
+<div class="flex justify-center gap-6 pt-4 border-t border-surface-container">
+<a aria-label="Instagram" class="text-tertiary hover:text-primary transition-colors p-2" href="#">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+</a>
+<a aria-label="Twitter" class="text-tertiary hover:text-primary transition-colors p-2" href="#">
+<span class="material-symbols-outlined" data-icon="flutter_dash">flutter_dash</span>
+</a>
+<a aria-label="Facebook" class="text-tertiary hover:text-primary transition-colors p-2" href="#">
+<span class="material-symbols-outlined" data-icon="public">public</span>
+</a>
+</div>
+<div class="text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant/70">© 2024 Verdant Wisdom Botanical Gardens. All rights preserved.</p>
+</div>
+</div>
+</nav>
+</div>
+</body></html>

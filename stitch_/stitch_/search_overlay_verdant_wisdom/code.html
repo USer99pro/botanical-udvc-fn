@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verdant Wisdom - Search Overlay</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&amp;family=Hanken+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"tertiary-fixed-dim": "#e2c290", "on-error": "#ffffff", "on-surface": "#1b1c19", "surface-tint": "#4d6453", tertiary: "#221500", "on-tertiary-container": "#ab8e61", surface: "#fbf9f4", "surface-dim": "#dbdad5", "on-tertiary": "#ffffff", secondary: "#426920", error: "#ba1a1a", "on-secondary-fixed": "#0c2000", "on-surface-variant": "#434843", background: "#fbf9f4", "secondary-fixed": "#c2f198", "on-tertiary-fixed": "#271900", "surface-container-highest": "#e4e2dd", "on-secondary-container": "#466d24", "error-container": "#ffdad6", "on-error-container": "#93000a", "primary-fixed": "#d0e9d4", "on-tertiary-fixed-variant": "#59431c", "surface-container": "#f0eee9", "outline-variant": "#c3c8c1", "on-secondary": "#ffffff", primary: "#061b0e", "surface-container-high": "#eae8e3", "tertiary-container": "#3b2804", "surface-container-lowest": "#ffffff", "on-primary": "#ffffff", "inverse-primary": "#b4cdb8", "primary-fixed-dim": "#b4cdb8", "on-background": "#1b1c19", "inverse-on-surface": "#f2f1ec", outline: "#737973", "on-primary-container": "#819986", "secondary-container": "#bfee95", "on-secondary-fixed-variant": "#2b5008", "inverse-surface": "#30312e", "surface-bright": "#fbf9f4", "on-primary-fixed": "#0b2013", "primary-container": "#1b3022", "surface-container-low": "#f5f3ee", "surface-variant": "#e4e2dd", "tertiary-fixed": "#ffdeab", "secondary-fixed-dim": "#a6d47e", "on-primary-fixed-variant": "#364c3c"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "64px", "section-gap": "120px", unit: "8px", "container-max": "1280px", gutter: "24px", "margin-mobile": "20px"}, fontFamily: {"label-sm": ["Hanken Grotesk"], "body-lg": ["Hanken Grotesk"], "headline-md": ["EB Garamond"], "display-lg": ["EB Garamond"], "body-md": ["Hanken Grotesk"], "headline-sm": ["EB Garamond"], "display-lg-mobile": ["EB Garamond"], "label-md": ["Hanken Grotesk"], headline: ["EB Garamond"], display: ["EB Garamond"], body: ["Hanken Grotesk"], label: ["Hanken Grotesk"]}, fontSize: {"label-sm": ["12px", {lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "500"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "headline-md": ["32px", {lineHeight: "40px", fontWeight: "500"}], "display-lg": ["56px", {lineHeight: "64px", letterSpacing: "-0.02em", fontWeight: "500"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-sm": ["24px", {lineHeight: "32px", fontWeight: "600"}], "display-lg-mobile": ["40px", {lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "500"}], "label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600"}]}}}};</script>
+<style>
+        .backdrop-blur-high {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen relative font-body-md overflow-hidden">
+<!-- Underlying page content (blurred/faded slightly to show overlay effect) -->
+<div class="absolute inset-0 z-0 opacity-40 grayscale-[20%]">
+<div class="w-full h-full bg-cover bg-center" data-alt="A wide, sweeping view of a highly detailed, serene botanical garden interior greenhouse. Lush green ferns and broad-leaf tropical plants fill the scene, illuminated by soft, natural sunlight streaming through a massive glass ceiling. The atmosphere is peaceful, organic, and meticulously maintained, perfectly reflecting the Verdant Sanctuary aesthetic with a palette of deep greens and soft cream light." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_zrXWdsRoOu0oHScbs180h-ZjqKkFrcz7dcWIXJWae68ajHCZZnuJJ7OBcccmtw0Ym3iN4wbjKXnB7-zPMn4zX2hZwf5J-osiJSarp6-Cp9FCNZ9Cx3nXS5eORm5JpXnWuvUpkYWBC7v90UhidvGk_wGXY1rC2yLavUINFvTMEGkhktPg_X5QtoeSG9eEn5dM6jJnb2sbxGfYA7vjR2JzskEMX_g8JolJHB-Nx1a4PN0wxnzYY3jATw')"></div>
+</div>
+<!-- Search Overlay Full Screen -->
+<div class="fixed inset-0 z-50 flex flex-col bg-surface-container-highest/80 backdrop-blur-high transition-opacity duration-300">
+<!-- Header / Search Input Area -->
+<header class="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 flex flex-col items-center">
+<div class="w-full flex justify-end mb-8">
+<button aria-label="Close search" class="p-2 rounded-full hover:bg-surface-container transition-colors text-on-surface-variant flex items-center justify-center group">
+<span class="material-symbols-outlined text-[32px] group-hover:text-primary transition-colors" data-icon="close">close</span>
+</button>
+</div>
+<div class="w-full max-w-3xl relative">
+<span class="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-[40px] text-tertiary/60 ml-4 pointer-events-none" data-icon="search">search</span>
+<input autofocus="" class="w-full bg-transparent border-0 border-b-2 border-tertiary/30 focus:border-tertiary focus:ring-0 text-headline-md font-headline-md text-primary placeholder-tertiary/40 pl-16 pr-4 py-4 transition-colors" placeholder="Search plants, collections, or events..." type="text"/>
+</div>
+</header>
+<!-- Search Suggestions Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 grid grid-cols-1 md:grid-cols-12 gap-gutter overflow-y-auto">
+<!-- Trending Searches Column -->
+<section class="col-span-1 md:col-span-4 flex flex-col gap-8">
+<div>
+<h3 class="font-label-md text-label-md text-tertiary uppercase tracking-widest mb-6 border-b border-surface-variant pb-2">Trending Searches</h3>
+<ul class="flex flex-col gap-4">
+<li>
+<a class="group flex items-center gap-3 text-body-lg font-body-lg text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-tertiary/50 group-hover:text-secondary transition-colors" data-icon="trending_up">trending_up</span>
+                                Monstera Deliciosa
+                            </a>
+</li>
+<li>
+<a class="group flex items-center gap-3 text-body-lg font-body-lg text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-tertiary/50 group-hover:text-secondary transition-colors" data-icon="trending_up">trending_up</span>
+                                Annual Orchid Exhibition
+                            </a>
+</li>
+<li>
+<a class="group flex items-center gap-3 text-body-lg font-body-lg text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-tertiary/50 group-hover:text-secondary transition-colors" data-icon="trending_up">trending_up</span>
+                                Interactive Garden Map
+                            </a>
+</li>
+<li>
+<a class="group flex items-center gap-3 text-body-lg font-body-lg text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-tertiary/50 group-hover:text-secondary transition-colors" data-icon="trending_up">trending_up</span>
+                                Japanese Garden Tours
+                            </a>
+</li>
+</ul>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-tertiary uppercase tracking-widest mb-6 border-b border-surface-variant pb-2">Collections Categories</h3>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md cursor-pointer hover:opacity-90 transition-opacity">Ferns</span>
+<span class="px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md cursor-pointer hover:opacity-90 transition-opacity">Succulents</span>
+<span class="px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md cursor-pointer hover:opacity-90 transition-opacity">Carnivorous</span>
+<span class="px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md cursor-pointer hover:opacity-90 transition-opacity">Aquatic</span>
+</div>
+</div>
+</section>
+<!-- Recent Discoveries Column (Bento Grid Style) -->
+<section class="col-span-1 md:col-span-8 flex flex-col gap-6 md:pl-8">
+<h3 class="font-label-md text-label-md text-tertiary uppercase tracking-widest border-b border-surface-variant pb-2">Recent Discoveries</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<a class="group relative aspect-[4/5] rounded-xl overflow-hidden bg-surface-container shadow-sm hover:shadow-md transition-shadow" href="#">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close-up macro photography of a vibrant green fern leaf unfurling, demonstrating intricate detail and natural geometry. The lighting is soft, natural daylight against a deep, dark green blurred background, emphasizing the organic tactility and serene mood of the botanical garden setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKTDuW6qEgbu1z5E2Sf_CWLxWeoi2lsVPAHoolnuhOwTr01Pgk4sRWEFSm6jpUQxL6sZwWSxHoQ3vKUBufgvAc3TSlpy8bhlZa86bQz5GarDWfPURn9rnobLl2AHAzBmtXC34zY1WDTuYiK5DrNhj2sTMsCM8Q94hP9D4PoNgRrR7DSs2Sgm2ywECJL0laLRVcsa1gBOD8Y7Khw2dBlw0okOd8dtYRHSgj5L4iPBqDrQ9QsNju0erLvQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6 flex flex-col justify-end h-full">
+<span class="font-label-sm text-label-sm text-secondary-fixed mb-1 uppercase tracking-wider">Plant Feature</span>
+<h4 class="font-headline-sm text-headline-sm text-on-primary group-hover:text-secondary-container transition-colors">Silver Lady Fern</h4>
+</div>
+</a>
+<!-- Card 2 -->
+<a class="group relative aspect-[4/5] rounded-xl overflow-hidden bg-surface-container shadow-sm hover:shadow-md transition-shadow" href="#">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A delicate, rare orchid bloom with striking purple and white petals, captured in high-resolution photography. The flower is isolated in focus against a soft, creamy blurred greenhouse background. The lighting is gentle and diffused, conveying an elegant, calming, and premium modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2FMcovZvTsy2YTraLaGHAv19KkDGIORdCRCv_PfQDbhyGhzyQlq5n1of3N2AMG7HSArnxLYOPdrBWKA0nChQD3yTNb6_T5CafWt6is4U2JVzLeVVN1arGJM80O1IGXPAK7sqqU6mxJ9CketWs2vUZ8MIcKIopFHuEUQ3LIWTmyvD5sRWoaY5VlHb1Ds0VDruB-eWwOaz32DO8Wr5sNLp6LWR9zSpRp8uGpO5vvbepHo3zFiTkNpey6A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6 flex flex-col justify-end h-full">
+<span class="font-label-sm text-label-sm text-secondary-fixed mb-1 uppercase tracking-wider">Event</span>
+<h4 class="font-headline-sm text-headline-sm text-on-primary group-hover:text-secondary-container transition-colors">Orchid Masterclass</h4>
+</div>
+</a>
+<!-- Card 3 -->
+<a class="group relative aspect-[4/5] rounded-xl overflow-hidden bg-surface-container shadow-sm hover:shadow-md transition-shadow sm:hidden lg:block" href="#">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A beautifully structured succulent plant viewed from directly above, highlighting its symmetrical rosette pattern. The plump leaves are pale green with subtle pink tips. The shot is well-lit with ambient light, sitting on a slightly textured, soft cream surface, reflecting the clean, organic minimalist design style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUwDwa5YO80D68BmySWW757zxXH-39spkoijKUdGvklIxuLbE4h2RU-AQL9ngu13csosyT9HKpYRxmE1baqntjq3IxcXhsjylMeCyyBBNrJxciTSefqHmSKjzWtIKvIRdFNKqBFiV2Tt_zUzsyj1N47NWOTB_wiSfC2V5lochvMGT2MYW7eWAlObX_PminP5CXhRAtlvRrf0L8SIIH-H1IU07h5cqOG4ScCBYFEnr0xoYnNm1sha_zUA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6 flex flex-col justify-end h-full">
+<span class="font-label-sm text-label-sm text-secondary-fixed mb-1 uppercase tracking-wider">Collection</span>
+<h4 class="font-headline-sm text-headline-sm text-on-primary group-hover:text-secondary-container transition-colors">Desert Flora</h4>
+</div>
+</a>
+</div>
+</section>
+</main>
+</div>
+</body></html>

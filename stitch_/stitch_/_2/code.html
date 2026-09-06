@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>เพิ่มข้อมูลพรรณไม้ - Verdant Wisdom</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&amp;family=Hanken+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Hanken+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"inverse-on-surface": "#f2f1ec", "secondary-fixed": "#c2f198", "on-primary-fixed-variant": "#364c3c", outline: "#737973", "on-secondary-container": "#466d24", "surface-variant": "#e4e2dd", "on-error": "#ffffff", "error-container": "#ffdad6", "tertiary-fixed": "#ffdeab", "on-primary": "#ffffff", "surface-container-highest": "#e4e2dd", "on-tertiary-fixed-variant": "#59431c", "on-secondary": "#ffffff", "inverse-primary": "#b4cdb8", "surface-container-high": "#eae8e3", secondary: "#426920", "on-secondary-fixed": "#0c2000", "outline-variant": "#c3c8c1", "on-tertiary-fixed": "#271900", "inverse-surface": "#30312e", "on-tertiary": "#ffffff", "tertiary-container": "#3b2804", "surface-container-low": "#f5f3ee", "tertiary-fixed-dim": "#e2c290", "on-tertiary-container": "#ab8e61", "surface-tint": "#4d6453", "surface-container-lowest": "#ffffff", "secondary-container": "#bfee95", "surface-container": "#f0eee9", "on-surface": "#1b1c19", primary: "#061b0e", "on-error-container": "#93000a", "primary-fixed-dim": "#b4cdb8", "surface-bright": "#fbf9f4", "secondary-fixed-dim": "#a6d47e", "on-background": "#1b1c19", "primary-container": "#1b3022", surface: "#fbf9f4", "on-primary-fixed": "#0b2013", tertiary: "#221500", "primary-fixed": "#d0e9d4", "on-surface-variant": "#434843", background: "#fbf9f4", "on-secondary-fixed-variant": "#2b5008", error: "#ba1a1a", "surface-dim": "#dbdad5", "on-primary-container": "#819986"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"container-max": "1280px", "section-gap": "120px", "margin-desktop": "64px", "margin-mobile": "20px", gutter: "24px", unit: "8px"}, fontFamily: {"body-lg": ["Hanken Grotesk"], "display-lg": ["EB Garamond"], "headline-sm": ["EB Garamond"], "body-md": ["Hanken Grotesk"], "display-lg-mobile": ["EB Garamond"], "label-sm": ["Hanken Grotesk"], "headline-md": ["EB Garamond"], "label-md": ["Hanken Grotesk"], headline: ["EB Garamond"], display: ["EB Garamond"], body: ["Hanken Grotesk"], label: ["Hanken Grotesk"]}, fontSize: {"body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "display-lg": ["56px", {lineHeight: "64px", letterSpacing: "-0.02em", fontWeight: "500"}], "headline-sm": ["24px", {lineHeight: "32px", fontWeight: "600"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "display-lg-mobile": ["40px", {lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "500"}], "label-sm": ["12px", {lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "500"}], "headline-md": ["32px", {lineHeight: "40px", fontWeight: "500"}], "label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600"}]}}}};</script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/90 dark:bg-surface-dim/90 backdrop-blur-md bg-surface-container-low dark:bg-surface-container-high transition-all duration-300">
+<div class="flex justify-between items-center max-w-container-max mx-auto px-margin-desktop py-4">
+<div class="font-display-lg text-headline-md text-primary dark:text-primary-fixed">
+                Verdant Wisdom
+            </div>
+<div class="hidden md:flex gap-8 items-center">
+<!-- Navigation links from JSON -->
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 hover:text-secondary-container transition-all duration-300" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 hover:text-secondary-container transition-all duration-300" href="#">Botanical History</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 hover:text-secondary-container transition-all duration-300" href="#">Garden Map</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 hover:text-secondary-container transition-all duration-300" href="#">Visit Us</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center justify-center px-6 py-3 bg-primary-container text-on-primary rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity">
+                    Membership
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[100px] px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full pb-section-gap">
+<!-- Header -->
+<header class="mb-12 mt-8">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-4">เพิ่มข้อมูลพรรณไม้</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                กรอกข้อมูลรายละเอียดของพรรณไม้ใหม่เพื่อเพิ่มเข้าสู่ระบบฐานข้อมูล Botanical Gardens ข้อมูลที่ครบถ้วนจะช่วยให้การจัดการและการแสดงผลง่ายขึ้น
+            </p>
+</header>
+<!-- Form Layout (Bento-style Grid) -->
+<form class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Primary Information -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Basic Info Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(27,48,34,0.05)] border border-surface-container">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">eco</span>
+                        ข้อมูลพื้นฐาน
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<!-- Plant Name (Thai) -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2" for="plant_name_th">ชื่อพรรณไม้ (ภาษาไทย) *</label>
+<input class="w-full bg-surface-container border-0 border-b-2 border-tertiary rounded-t-md px-4 py-3 text-body-md text-on-surface focus:ring-0 focus:border-primary transition-colors" id="plant_name_th" name="plant_name_th" placeholder="เช่น กล้วยไม้ป่า" required="" type="text"/>
+</div>
+<!-- Scientific Name -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2" for="scientific_name">ชื่อวิทยาศาสตร์ *</label>
+<input class="w-full bg-surface-container border-0 border-b-2 border-tertiary rounded-t-md px-4 py-3 text-body-md text-on-surface focus:ring-0 focus:border-primary transition-colors italic" id="scientific_name" name="scientific_name" placeholder="e.g., Orchidaceae" required="" type="text"/>
+</div>
+</div>
+<div class="mb-6">
+<label class="block font-label-md text-label-md text-on-surface mb-2" for="category">หมวดหมู่ / วงศ์ (Family)</label>
+<select class="w-full bg-surface-container border-0 border-b-2 border-tertiary rounded-t-md px-4 py-3 text-body-md text-on-surface focus:ring-0 focus:border-primary transition-colors appearance-none" id="category" name="category">
+<option value="">เลือกหมวดหมู่...</option>
+<option value="ferns">เฟิร์น (Ferns)</option>
+<option value="succulents">ไม้อวบน้ำ (Succulents)</option>
+<option value="orchids">กล้วยไม้ (Orchids)</option>
+<option value="trees">ไม้ยืนต้น (Trees)</option>
+<option value="shrubs">ไม้พุ่ม (Shrubs)</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2" for="description">รายละเอียด (Description)</label>
+<textarea class="w-full bg-surface-container border-0 border-b-2 border-tertiary rounded-t-md px-4 py-3 text-body-md text-on-surface focus:ring-0 focus:border-primary transition-colors resize-y" id="description" name="description" placeholder="บรรยายลักษณะทั่วไป ถิ่นกำเนิด หรือความน่าสนใจ..." rows="4"></textarea>
+</div>
+</div>
+<!-- Care Instructions Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(27,48,34,0.05)] border border-surface-container">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+                        การดูแลรักษา (Care Instructions)
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Water -->
+<div class="flex flex-col gap-3 p-4 bg-surface rounded-lg border border-surface-container-high">
+<div class="flex items-center gap-2 text-primary-container">
+<span class="material-symbols-outlined">water_drop</span>
+<span class="font-label-md text-label-md">ความต้องการน้ำ</span>
+</div>
+<select class="bg-transparent border-b border-outline-variant pb-1 text-body-sm focus:outline-none focus:border-primary">
+<option>น้อย (สัปดาห์ละครั้ง)</option>
+<option selected="">ปานกลาง (2-3 วัน/ครั้ง)</option>
+<option>มาก (ทุกวัน)</option>
+</select>
+</div>
+<!-- Sunlight -->
+<div class="flex flex-col gap-3 p-4 bg-surface rounded-lg border border-surface-container-high">
+<div class="flex items-center gap-2 text-tertiary-container">
+<span class="material-symbols-outlined">light_mode</span>
+<span class="font-label-md text-label-md">แสงแดด</span>
+</div>
+<select class="bg-transparent border-b border-outline-variant pb-1 text-body-sm focus:outline-none focus:border-primary">
+<option>รำไร (ร่มเงา)</option>
+<option selected="">แดดครึ่งวัน</option>
+<option>แดดจัด (เต็มวัน)</option>
+</select>
+</div>
+<!-- Soil -->
+<div class="flex flex-col gap-3 p-4 bg-surface rounded-lg border border-surface-container-high">
+<div class="flex items-center gap-2 text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined">grass</span>
+<span class="font-label-md text-label-md">ดิน/วัสดุปลูก</span>
+</div>
+<select class="bg-transparent border-b border-outline-variant pb-1 text-body-sm focus:outline-none focus:border-primary">
+<option>ดินร่วนซุย</option>
+<option>ดินระบายน้ำดี (ผสมทราย)</option>
+<option>กาบมะพร้าว/มอส</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Image Upload & Actions -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Image Upload Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(27,48,34,0.05)] border border-surface-container flex-grow">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">image</span>
+                        รูปภาพพรรณไม้
+                    </h2>
+<div class="mt-2 relative group w-full aspect-[4/5] bg-surface-container-low rounded-lg border-2 border-dashed border-outline-variant flex flex-col items-center justify-center overflow-hidden hover:border-primary transition-colors cursor-pointer">
+<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" id="plant_image" type="file"/>
+<!-- Upload Placeholder Content -->
+<div class="flex flex-col items-center justify-center p-6 text-center z-0">
+<span class="material-symbols-outlined text-4xl text-outline mb-3 group-hover:text-primary transition-colors">upload_file</span>
+<span class="font-label-md text-label-md text-primary mb-1">คลิกเพื่ออัปโหลดรูปภาพ</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">PNG, JPG (แนะนำสัดส่วน 4:5)</span>
+</div>
+<!-- Preview Area (Hidden by default, shown via JS if needed in real app) -->
+<div class="absolute inset-0 bg-cover bg-center hidden z-0" id="image_preview"></div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(27,48,34,0.05)] border border-surface-container flex flex-col gap-4">
+<button class="w-full py-4 bg-primary-container text-on-primary rounded-full font-label-md text-label-md hover:bg-primary transition-colors flex items-center justify-center gap-2 shadow-sm" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+                        บันทึกข้อมูลพรรณไม้
+                    </button>
+<button class="w-full py-3 bg-transparent text-primary rounded-full font-label-md text-label-md border-2 border-outline-variant hover:border-primary hover:bg-surface-container-low transition-colors" type="button">
+                        ยกเลิก
+                    </button>
+</div>
+</div>
+</form>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-section-gap bg-surface-container-lowest dark:bg-surface-container-highest border-t border-surface-container">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-16">
+<div class="col-span-1 md:col-span-1 flex flex-col gap-4">
+<span class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed">Verdant Wisdom</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    © 2024 Verdant Wisdom Botanical Gardens. All rights preserved.
+                </p>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap gap-8 md:justify-end items-center">
+<a class="font-body-md text-body-md text-tertiary dark:text-tertiary-fixed hover:text-primary transition-colors" href="#">Conservation Efforts</a>
+<a class="font-body-md text-body-md text-tertiary dark:text-tertiary-fixed hover:text-primary transition-colors" href="#">Volunteer</a>
+<a class="font-body-md text-body-md text-tertiary dark:text-tertiary-fixed hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-tertiary dark:text-tertiary-fixed hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<!-- Simple interaction script for file upload visual feedback -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('plant_image');
+            const previewArea = document.getElementById('image_preview');
+            
+            if(fileInput && previewArea) {
+                fileInput.addEventListener('change', function(e) {
+                    if (this.files && this.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            previewArea.style.backgroundImage = `url('${e.target.result}')`;
+                            previewArea.classList.remove('hidden');
+                        }
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

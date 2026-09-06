@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>หมวดหมู่พันธุ์ไม้ - Verdant Wisdom</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&amp;family=Hanken+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&amp;family=Hanken+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-surface-variant": "#434843", "secondary-container": "#bfee95", "surface-container-low": "#f5f3ee", "secondary-fixed-dim": "#a6d47e", "surface-container-lowest": "#ffffff", "on-primary-fixed-variant": "#364c3c", secondary: "#426920", "primary-fixed": "#d0e9d4", primary: "#061b0e", "on-primary": "#ffffff", "inverse-on-surface": "#f2f1ec", "secondary-fixed": "#c2f198", "on-tertiary-container": "#ab8e61", "surface-container-high": "#eae8e3", tertiary: "#221500", "on-tertiary": "#ffffff", "tertiary-fixed": "#ffdeab", "surface-tint": "#4d6453", "on-primary-container": "#819986", "on-error": "#ffffff", "on-secondary": "#ffffff", "outline-variant": "#c3c8c1", "on-secondary-fixed-variant": "#2b5008", "surface-bright": "#fbf9f4", surface: "#fbf9f4", "on-surface": "#1b1c19", "tertiary-fixed-dim": "#e2c290", "primary-container": "#1b3022", "surface-container": "#f0eee9", "tertiary-container": "#3b2804", "surface-dim": "#dbdad5", "inverse-surface": "#30312e", "on-tertiary-fixed-variant": "#59431c", "primary-fixed-dim": "#b4cdb8", "on-error-container": "#93000a", "on-secondary-fixed": "#0c2000", "inverse-primary": "#b4cdb8", outline: "#737973", "error-container": "#ffdad6", background: "#fbf9f4", "surface-container-highest": "#e4e2dd", "on-secondary-container": "#466d24", error: "#ba1a1a", "on-primary-fixed": "#0b2013", "surface-variant": "#e4e2dd", "on-tertiary-fixed": "#271900", "on-background": "#1b1c19"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {unit: "8px", "section-gap": "120px", "container-max": "1280px", "margin-desktop": "64px", "margin-mobile": "20px", gutter: "24px"}, fontFamily: {"body-md": ["Hanken Grotesk"], "headline-sm": ["EB Garamond"], "label-sm": ["Hanken Grotesk"], "body-lg": ["Hanken Grotesk"], "display-lg": ["EB Garamond"], "label-md": ["Hanken Grotesk"], "headline-md": ["EB Garamond"], "display-lg-mobile": ["EB Garamond"], headline: ["EB Garamond"], display: ["EB Garamond"], body: ["Hanken Grotesk"], label: ["Hanken Grotesk"]}, fontSize: {"body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-sm": ["24px", {lineHeight: "32px", fontWeight: "600"}], "label-sm": ["12px", {lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "500"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "display-lg": ["56px", {lineHeight: "64px", letterSpacing: "-0.02em", fontWeight: "500"}], "label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600"}], "headline-md": ["32px", {lineHeight: "40px", fontWeight: "500"}], "display-lg-mobile": ["40px", {lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "500"}]}}}};</script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TopNavBar -->
+<header class="bg-surface/90 dark:bg-surface-dim/90 font-body-md text-body-md fixed top-0 w-full z-50 bg-surface-container-low dark:bg-surface-container-high backdrop-blur-md">
+<div class="flex justify-between items-center max-w-container-max mx-auto px-margin-desktop py-4">
+<div class="flex items-center gap-4">
+<a class="font-display-lg text-headline-md text-primary dark:text-primary-fixed" href="#">Verdant Wisdom</a>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-primary dark:text-primary-fixed border-b-2 border-secondary font-bold pb-1 opacity-80 transition-opacity" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary transition-colors hover:text-secondary-container dark:hover:text-secondary-fixed transition-all duration-300" href="#">Botanical History</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary transition-colors hover:text-secondary-container dark:hover:text-secondary-fixed transition-all duration-300" href="#">Garden Map</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary transition-colors hover:text-secondary-container dark:hover:text-secondary-fixed transition-all duration-300" href="#">Visit Us</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container border-b border-tertiary focus:outline-none focus:border-primary rounded-t-lg text-body-md" placeholder="ค้นหาหมวดหมู่..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md hover:bg-primary/90 transition-colors">Membership</button>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-[120px] pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Header Section -->
+<section class="mb-16">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-4">หมวดหมู่พันธุ์ไม้</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">สำรวจความหลากหลายทางพฤกษศาสตร์ผ่านคอลเลกชันที่ได้รับการดูแลอย่างพิถีพิถันของเรา ค้นพบพืชพันธุ์จากทั่วทุกมุมโลก</p>
+</section>
+<!-- Filters & Search Mobile -->
+<section class="mb-12 flex flex-col md:flex-row gap-4 justify-between items-center bg-surface-container-low p-4 rounded-xl shadow-sm shadow-primary/5">
+<div class="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto hide-scrollbar">
+<button class="px-4 py-2 bg-secondary text-on-secondary rounded-full font-label-sm text-label-sm whitespace-nowrap">ทั้งหมด</button>
+<button class="px-4 py-2 bg-surface border border-outline-variant text-on-surface-variant rounded-full font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container transition-colors">พืชในร่ม</button>
+<button class="px-4 py-2 bg-surface border border-outline-variant text-on-surface-variant rounded-full font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container transition-colors">พืชกลางแจ้ง</button>
+<button class="px-4 py-2 bg-surface border border-outline-variant text-on-surface-variant rounded-full font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container transition-colors">หายาก</button>
+</div>
+<div class="relative w-full md:w-64 md:hidden">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container border-b border-tertiary focus:outline-none focus:border-primary rounded-t-lg text-body-md" placeholder="ค้นหา..." type="text"/>
+</div>
+<div class="hidden md:flex items-center gap-2 text-on-surface-variant font-label-md text-label-md cursor-pointer hover:text-primary transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+<span>ตัวกรองขั้นสูง</span>
+</div>
+</section>
+<!-- Bento Grid Collections -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Flowering Plants (Spans 8 cols) -->
+<a class="group md:col-span-8 relative rounded-2xl overflow-hidden h-[400px] shadow-sm shadow-primary/5" href="#">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A macro photograph of vibrant, exotic flowering plants in a botanical garden setting, soft natural sunlight filtering through leaves, high definition, serene light-mode aesthetic, lush green and cream tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqsopQAXP0swi1BtPrwNi3k6JmwKvW6CBr1su0gqY20-9QD4TgHgVk723sZATkpVk8MBF2TNJO7YLk1lKCVZbRGEn0QbyHgUu20ob2KX8ZEg9oOnOpPIwi1KTK149XXuA2XdFHlDIU-ftJ7gLQYnsBhi2NKYNv7BZ-s3_QeAfLYTo_RSUia7FnHsR9XYygnuIBkTyFIyWTsfolL6lozF1RjCvGioS-8M71tqIgw-AQqL5WzO-LOkSh6g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex flex-col justify-end p-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-3 py-1 bg-secondary text-on-secondary rounded-full font-label-sm text-label-sm">พืชดอก</span>
+</div>
+<h2 class="font-headline-sm text-headline-md text-on-primary mb-2">Flowering Plants</h2>
+<div class="flex items-center gap-2 text-primary-fixed-dim font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">local_florist</span>
+<span>2,450 สายพันธุ์</span>
+</div>
+</div>
+</a>
+<!-- Succulents & Cacti (Spans 4 cols) -->
+<a class="group md:col-span-4 relative rounded-2xl overflow-hidden h-[400px] shadow-sm shadow-primary/5" href="#">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A minimalist flat-lay style photograph of various succulents and small cacti in terracotta pots on a light cream surface, bright diffused lighting, organic textures, tranquil botanical atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3O1kejYsao48JSYvaY-w4smapMOEbQaDEE8bXe3tIYq7DiMnZWACgpLPJo-5Wf6jQg6WofzG6KVyvY1tQ-L6FBobml75tMmsUGFlWrEg-APloihkswxJERZvgD3E1ESfXWoWBzHL7QgcQlmovoYfkJAdHn2cS3LNJWkJ15AhrSK-bQXiab53GYSwpGdr4ZefjwVl8wu29lJxbff8jZA3GCAvzEwmdb-IJtFUYZYwG7l5ocFJihdWBQA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex flex-col justify-end p-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-3 py-1 bg-surface/80 backdrop-blur-sm text-on-surface rounded-full font-label-sm text-label-sm">ทนแล้ง</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-primary mb-2">Succulents &amp; Cacti</h2>
+<div class="flex items-center gap-2 text-primary-fixed-dim font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">eco</span>
+<span>850 สายพันธุ์</span>
+</div>
+</div>
+</a>
+<!-- Tropical Rainforest (Spans 6 cols) -->
+<a class="group md:col-span-6 relative rounded-2xl overflow-hidden h-[400px] shadow-sm shadow-primary/5" href="#">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An immersive, lush photograph of a dense tropical rainforest greenhouse interior, giant monstera leaves and ferns, humid mist in the air, deep rich greens contrasting with soft cream pathways, serene and peaceful." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3zPj5HiuE0jCuv-c9NkGKLS9ccw1gQEnTiUjjFNNnwqKxfX6mfip-2jZED-PqBXcA6NYyrJqJXPdltr7xgAsFYUT2x6XMZCDhjemmeD6Bbv5113zqO0WDh3bzTyEtojzuj8Mlw16q9x8kIVH68iUMLLHJvp1WG-N75VIa-xzOLyBOPCUqizyXa40Javw1cbOXSIZi_WH27XZznBqtP-tPNrVll1VAylNowI03PwzzuuNPGVegM10j1Q"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex flex-col justify-end p-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-3 py-1 bg-surface/80 backdrop-blur-sm text-on-surface rounded-full font-label-sm text-label-sm">เขตร้อน</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-primary mb-2">Tropical Rainforest</h2>
+<div class="flex items-center gap-2 text-primary-fixed-dim font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">forest</span>
+<span>1,200 สายพันธุ์</span>
+</div>
+</div>
+</a>
+<!-- Medicinal Herbs (Spans 6 cols) -->
+<a class="group md:col-span-6 relative rounded-2xl overflow-hidden h-[400px] shadow-sm shadow-primary/5 bg-surface-container-low flex items-center justify-center p-8" href="#">
+<!-- Using an alternate layout for visual interest within the bento grid -->
+<div class="w-1/2 h-full rounded-xl overflow-hidden mr-6 shadow-sm shadow-primary/10">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A clean, clinical yet organic photograph of fresh medicinal herbs bundled together on a wooden apothecary table, soft natural daylight, shallow depth of field, pale green and off-white tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASofqvRzbJz0ksHsUaIow5ff7vGdjRFVchh2b22Tez_70C01pplUP66C7AXi1pMGSIoFD9E2skSmx6kX0ujFkIEQy3m6jJpKQJAZS8TIInEAvOI_4h1y1Q_izb0APHDgXK0ugSDe33OnKHXCymMMFi1bHqvSV_L7V8gcKNzZQua2xoLrULpGbvYs0GyzaGlfid5J3mqzJbCpdK7r_cwO3SYM5adAi-gq-trHNiZ2zylAg9daBZ-IMWEg"/>
+</div>
+<div class="flex flex-col justify-center w-1/2">
+<div class="flex items-center gap-2 mb-4">
+<span class="px-3 py-1 bg-secondary text-on-secondary rounded-full font-label-sm text-label-sm">สมุนไพร</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-3">Medicinal Herbs</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-3">พืชพรรณที่มีคุณสมบัติทางยาและประวัติศาสตร์การรักษาที่ยาวนาน รวบรวมจากภูมิปัญญาโบราณ</p>
+<div class="flex items-center gap-2 text-tertiary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">spa</span>
+<span>420 สายพันธุ์</span>
+</div>
+</div>
+</a>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-highest font-body-md text-body-md w-full mt-section-gap bg-surface-container dark:bg-surface-container-high focus-within:ring-2 focus-within:ring-secondary">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-16">
+<div class="col-span-1 md:col-span-2">
+<div class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed mb-4">Verdant Wisdom</div>
+<p class="text-tertiary dark:text-tertiary-fixed mb-6 max-w-md">ปลูกฝังความรู้และความสงบสุขผ่านความมหัศจรรย์ของโลกพฤกษศาสตร์</p>
+</div>
+<div class="col-span-1 md:col-span-2 flex flex-wrap gap-x-12 gap-y-4 justify-start md:justify-end">
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Conservation Efforts</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Volunteer</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="col-span-1 md:col-span-4 mt-12 pt-8 border-t border-outline-variant/30 text-center text-on-surface-variant dark:text-on-surface-variant/70 font-label-sm text-label-sm">
+                © 2024 Verdant Wisdom Botanical Gardens. All rights preserved.
+            </div>
+</div>
+</footer>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>

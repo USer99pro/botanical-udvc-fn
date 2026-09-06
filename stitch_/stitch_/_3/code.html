@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ประเภทพรรณไม้ทั้งหมด - Verdant Wisdom</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&amp;family=Hanken+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"inverse-on-surface": "#f2f1ec", "secondary-fixed": "#c2f198", "on-primary-fixed-variant": "#364c3c", outline: "#737973", "on-secondary-container": "#466d24", "surface-variant": "#e4e2dd", "on-error": "#ffffff", "error-container": "#ffdad6", "tertiary-fixed": "#ffdeab", "on-primary": "#ffffff", "surface-container-highest": "#e4e2dd", "on-tertiary-fixed-variant": "#59431c", "on-secondary": "#ffffff", "inverse-primary": "#b4cdb8", "surface-container-high": "#eae8e3", secondary: "#426920", "on-secondary-fixed": "#0c2000", "outline-variant": "#c3c8c1", "on-tertiary-fixed": "#271900", "inverse-surface": "#30312e", "on-tertiary": "#ffffff", "tertiary-container": "#3b2804", "surface-container-low": "#f5f3ee", "tertiary-fixed-dim": "#e2c290", "on-tertiary-container": "#ab8e61", "surface-tint": "#4d6453", "surface-container-lowest": "#ffffff", "secondary-container": "#bfee95", "surface-container": "#f0eee9", "on-surface": "#1b1c19", primary: "#061b0e", "on-error-container": "#93000a", "primary-fixed-dim": "#b4cdb8", "surface-bright": "#fbf9f4", "secondary-fixed-dim": "#a6d47e", "on-background": "#1b1c19", "primary-container": "#1b3022", surface: "#fbf9f4", "on-primary-fixed": "#0b2013", tertiary: "#221500", "primary-fixed": "#d0e9d4", "on-surface-variant": "#434843", background: "#fbf9f4", "on-secondary-fixed-variant": "#2b5008", error: "#ba1a1a", "surface-dim": "#dbdad5", "on-primary-container": "#819986"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"container-max": "1280px", "section-gap": "120px", "margin-desktop": "64px", "margin-mobile": "20px", gutter: "24px", unit: "8px"}, fontFamily: {"body-lg": ["Hanken Grotesk"], "display-lg": ["EB Garamond"], "headline-sm": ["EB Garamond"], "body-md": ["Hanken Grotesk"], "display-lg-mobile": ["EB Garamond"], "label-sm": ["Hanken Grotesk"], "headline-md": ["EB Garamond"], "label-md": ["Hanken Grotesk"], headline: ["EB Garamond"], display: ["EB Garamond"], body: ["Hanken Grotesk"], label: ["Hanken Grotesk"]}, fontSize: {"body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "display-lg": ["56px", {lineHeight: "64px", letterSpacing: "-0.02em", fontWeight: "500"}], "headline-sm": ["24px", {lineHeight: "32px", fontWeight: "600"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "display-lg-mobile": ["40px", {lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "500"}], "label-sm": ["12px", {lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "500"}], "headline-md": ["32px", {lineHeight: "40px", fontWeight: "500"}], "label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600"}]}}}};</script>
+<style>
+        body { background-color: #fbf9f4; color: #1b1c19; }
+        .glass-card {
+            background: rgba(251, 249, 244, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(195, 200, 193, 0.3);
+            box-shadow: 0 4px 24px -4px rgba(6, 27, 14, 0.05);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/90 dark:bg-surface-dim/90 bg-surface-container-low dark:bg-surface-container-high backdrop-blur-md">
+<div class="flex justify-between items-center max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-4">
+<a class="font-display-lg text-headline-md text-primary dark:text-primary-fixed" href="#">Verdant Wisdom</a>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary transition-colors hover:text-secondary-container dark:hover:text-secondary-fixed transition-all duration-300" href="#">หน้าแรก</a>
+<a class="text-primary dark:text-primary-fixed border-b-2 border-secondary font-bold pb-1 opacity-80 transition-opacity" href="#">คอลเลกชัน</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary transition-colors hover:text-secondary-container dark:hover:text-secondary-fixed transition-all duration-300" href="#">ประวัติพฤกษศาสตร์</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary transition-colors hover:text-secondary-container dark:hover:text-secondary-fixed transition-all duration-300" href="#">ข้อมูลการเยี่ยมชม</a>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="Search" class="p-2 text-primary hover:bg-surface-container rounded-full transition-colors" id="searchToggle">
+<span class="material-symbols-outlined">search</span>
+</button>
+<a class="hidden md:block bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md hover:bg-primary/90 transition-colors" href="#">สมัครสมาชิก</a>
+</div>
+</div>
+</nav>
+<!-- Search Overlay -->
+<div class="fixed inset-0 bg-surface/95 backdrop-blur-xl z-[60] hidden flex-col opacity-0 transition-opacity duration-300" id="searchOverlay">
+<div class="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 flex justify-end">
+<button aria-label="Close Search" class="p-2 text-primary hover:bg-surface-container rounded-full transition-colors" id="closeSearch">
+<span class="material-symbols-outlined text-headline-md">close</span>
+</button>
+</div>
+<div class="flex-1 flex items-center justify-center px-margin-mobile">
+<div class="w-full max-w-2xl relative">
+<input class="w-full bg-transparent border-b-2 border-primary text-headline-sm font-headline-sm py-4 px-2 focus:outline-none focus:border-secondary transition-colors placeholder:text-on-surface-variant/50" placeholder="ค้นหาพรรณไม้..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 text-primary">
+<span class="material-symbols-outlined text-headline-md">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-1 pt-32 pb-section-gap">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<header class="mb-16 text-center max-w-3xl mx-auto">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">ประเภทพรรณไม้ทั้งหมด</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">สำรวจความหลากหลายทางชีวภาพอันน่าทึ่ง ผ่านคอลเลกชันพรรณไม้ที่ถูกจัดหมวดหมู่ไว้อย่างเป็นระเบียบ เพื่อการศึกษาและความเพลิดเพลิน</p>
+</header>
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Category 1 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] glass-card flex flex-col justify-end cursor-pointer">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A macro photography style close up of vibrant, blooming tropical flowers in a lush botanical garden setting. High key lighting, deep rich reds and greens, light mode aesthetic, soft diffused shadows, organic tactile feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn3eVm6rHZECLwD5SKwF7iF5u66JlQrW_3_wYUPLZ-HktgjkfWia5E5b1bDULCVQNHLQ__Dhx-2g8UNkN6EFMkjF3ZialC-WoPMqT_UAI4DTOR_Q2IIVFSm5fcGOBg_gu2Y1yYVJ9E3c52Sfz7rpCzlghulbc-AH0Hnbs_YKXWiegjrJyUM_5OHSvw877TqIEt4c4gLTp0wlQXrmROqGJy5-BxUx5J-aGWtUvqaTwvk7XFm2ZZyY3Zgw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+<div class="relative p-6 z-10">
+<span class="inline-block bg-secondary text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm mb-3">ยอดนิยม</span>
+<h2 class="font-headline-sm text-headline-sm text-on-primary mb-2">พรรณไม้ดอก (Flowering Plants)</h2>
+<p class="font-body-md text-body-md text-on-primary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">สีสันแห่งฤดูกาลที่ผลิบานตลอดทั้งปี</p>
+</div>
+</div>
+<!-- Category 2 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] glass-card flex flex-col justify-end cursor-pointer lg:col-span-2">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A wide architectural shot of a stunning modern glass greenhouse filled with dense, oversized tropical foliage. Light rays streaming through the glass roof. Serene, bright, highly detailed light-mode botanical garden vibe. Tonal cream and deep green palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-_x9vSKe9zzGPqJHhnug_P54j9Zbb-HOFUZNOmUhCapgIsCrdD0nOothEUelhDF9eOwz-pGeVUKPuaftFIGH3F70vIGcKHrLzhwp3KWz3Opki_O-A2wB5FnFwwOjj8rzYQO5YJPbQ2pWNJgszv4n8YYy1g499PlH6OtvwgPiqY3J_v38_B5j9theYXYYBeGJWEyB4w2hQUP5rWrdi5O8P1FN9SWCIl6GN_c5kbI5dOcbCCsL-quSITA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+<div class="relative p-6 z-10">
+<h2 class="font-headline-sm text-headline-sm text-on-primary mb-2">พรรณไม้เขตร้อน (Tropical)</h2>
+<p class="font-body-md text-body-md text-on-primary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">สัมผัสความอุดมสมบูรณ์ของป่าดิบชื้น</p>
+</div>
+</div>
+<!-- Category 3 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] glass-card flex flex-col justify-end cursor-pointer">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Minimalist flat lay photography of various small succulent plants arranged neatly on a smooth cream colored potting bench. Soft overhead lighting, highly organized, soothing and therapeutic atmosphere. Crisp details, light mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMXK3ir83wF1c8ncAvzz-OvZ4aqVeCQNA0rr-ypEpNyfQ1dob7YDGiqhV6NJhHjn0nZN2whbMCS68juN6T8NmHbco0Xi4MELGIJz7hcUqinfDRcqFaOIelBmWmRakwhxOMIuWays_QzvW93BiPo765Qy0WfMlIdHVKcBd6rf1kLp0Bfp3uCMbDlOm2DdM_bqo2fK__X4X9_6ETLRjZQsAT-SFyYBGjHyvoqpRpBWJ1Uhp43-3ANR_6vA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+<div class="relative p-6 z-10">
+<h2 class="font-headline-sm text-headline-sm text-on-primary mb-2">ไม้อวบน้ำ (Succulents)</h2>
+<p class="font-body-md text-body-md text-on-primary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">ความงามแห่งความทรหดและรูปทรงเรขาคณิต</p>
+</div>
+</div>
+<!-- Category 4 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] glass-card flex flex-col justify-end cursor-pointer">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A serene, sunlit corner of an apothecary or herb garden. Wooden planter boxes filled with delicate, varied medicinal herbs like lavender and rosemary. Earthy tones, tranquil mood, soft depth of field, warm light mode." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANM8vxzCYr5OtrduojiNsDvtmdx8upcajCN4B9Oz5pM_7nfsHqc4o1_GbHwCgM8U4eUSycMw55uylYLmxNOBZMooj6q-8_OBnQO5KvU5q_9O0aWLnvHsZXSvfF2UvWf4WOaMgrtAB9Ca--VOPhIgsOPvhAmoKlc4PywWlxnQqdsplaRx6R5XseOC3nQyOGxaMbyLQ0jzmCuJ5Koan-Al3mwiEDmTVUHn2EEci05keU_L7p7lPhFPDIRw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+<div class="relative p-6 z-10">
+<h2 class="font-headline-sm text-headline-sm text-on-primary mb-2">สมุนไพรบำบัด (Medicinal Herbs)</h2>
+<p class="font-body-md text-body-md text-on-primary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">ภูมิปัญญาแห่งธรรมชาติเพื่อการเยียวยา</p>
+</div>
+</div>
+<!-- Category 5 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] glass-card flex flex-col justify-end cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700" data-alt="An ethereal, misty morning view deep inside a fern gully. Sunlight barely piercing through the canopy, highlighting intricate unfurling fern fronds. Quiet, ancient atmosphere, deep greens contrasting with soft white mist." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdkhyEw0yYFxhrl_q5ID3w_nt7T-wR1yjWSSISE9Wy_ljwo9v1He2H7__2oEJPhbSluJSLFe67B3bIEvk7C_p5hrl1Rt1CK_GRM5i09BbhMx8I1M2r6L8-tJA3atWAeyUSTfzznRCLFD6enLsFlKyfx3alj_uoq-0yjVf0Kw47l1WvjOkWnktBaZdTQ0tMF72n6Vow83OF6YACuZepIw54U3G5ihQlv8khU0Pwye2K1d4RnkoXyRdIlQ')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+<div class="relative p-6 z-10">
+<h2 class="font-headline-sm text-headline-sm text-on-primary mb-2">เฟิร์น (Ferns)</h2>
+<p class="font-body-md text-body-md text-on-primary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">พรรณไม้โบราณที่สืบทอดความเขียวขจี</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-section-gap bg-surface-container-lowest dark:bg-surface-container-highest">
+<div class="bg-surface-container dark:bg-surface-container-high grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16">
+<div class="md:col-span-1">
+<span class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed mb-4 block">Verdant Wisdom</span>
+<p class="font-body-md text-body-md text-tertiary dark:text-tertiary-fixed mb-4">© 2024 Verdant Wisdom Botanical Gardens. All rights preserved.</p>
+</div>
+<div class="flex flex-col gap-2">
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors focus-within:ring-2 focus-within:ring-secondary py-1" href="#">Conservation Efforts</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors focus-within:ring-2 focus-within:ring-secondary py-1" href="#">Volunteer</a>
+</div>
+<div class="flex flex-col gap-2">
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors focus-within:ring-2 focus-within:ring-secondary py-1" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors focus-within:ring-2 focus-within:ring-secondary py-1" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        const searchToggle = document.getElementById('searchToggle');
+        const searchOverlay = document.getElementById('searchOverlay');
+        const closeSearch = document.getElementById('closeSearch');
+        const searchInput = searchOverlay.querySelector('input');
+
+        function toggleSearch() {
+            if (searchOverlay.classList.contains('hidden')) {
+                searchOverlay.classList.remove('hidden');
+                // Small delay to allow display:block to apply before animating opacity
+                setTimeout(() => {
+                    searchOverlay.classList.remove('opacity-0');
+                    searchInput.focus();
+                }, 10);
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            } else {
+                searchOverlay.classList.add('opacity-0');
+                setTimeout(() => {
+                    searchOverlay.classList.add('hidden');
+                }, 300); // Match transition duration
+                document.body.style.overflow = '';
+            }
+        }
+
+        searchToggle.addEventListener('click', toggleSearch);
+        closeSearch.addEventListener('click', toggleSearch);
+        
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !searchOverlay.classList.contains('hidden')) {
+                toggleSearch();
+            }
+        });
+    </script>
+</body></html>
