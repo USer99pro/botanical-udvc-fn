@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // Components & Navigation
 import Navbar from './components/common/Navbar';
 
-// Pages
+// Existing Pages (Preserved 100%)
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
 import PlantDetailPage from './pages/PlantDetailPage';
@@ -14,17 +14,99 @@ import RegisterPage from './pages/RegisterPage';
 import AboutConservationPage from './pages/AboutConservationPage';
 import NewsPage from './pages/NewsPage';
 
+// New Botanical Garden Specification Pages
+import PlantStudyPage from './pages/PlantStudyPage';
+import FiveElementsPage from './pages/FiveElementsPage';
+import ThreeLearningAreasPage from './pages/ThreeLearningAreasPage';
+import LocalResourcesPage from './pages/LocalResourcesPage';
+import PlantSignboardPage from './pages/PlantSignboardPage';
+import PlantDrawingPage from './pages/PlantDrawingPage';
+import PlantRegistryPage from './pages/PlantRegistryPage';
+import PlantDataPage from './pages/PlantDataPage';
+import PlantPhotosPage from './pages/PlantPhotosPage';
+import ProjectsPage from './pages/ProjectsPage';
+import AchievementTablePage from './pages/AchievementTablePage';
+import GoodnessSharingPage from './pages/GoodnessSharingPage';
+import StudyAreaMapPage from './pages/StudyAreaMapPage';
+import IntegrationGuidePage from './pages/IntegrationGuidePage';
+import RelatedAgenciesPage from './pages/RelatedAgenciesPage';
+import BotanicalHistoryPage from './pages/BotanicalHistoryPage';
+import BotanicalRolesPage from './pages/BotanicalRolesPage';
+import PersonnelStructurePage from './pages/PersonnelStructurePage';
+import CollegeMapPage from './pages/CollegeMapPage';
+
 // Modals
 import SearchOverlayModal from './components/modals/SearchOverlayModal';
 import MobileMenuModal from './components/modals/MobileMenuModal';
 import AdminLoginModal from './components/modals/AdminLoginModal';
 
+// Route to Page ID mapping for URL hash support
+const HASH_TO_PAGE = {
+  'plant-study': 'plantStudy',
+  'five-elements': 'fiveElements',
+  'three-learning-areas': 'threeLearningAreas',
+  'local-resources': 'localResources',
+  'plant-types': 'plantData',
+  'plant-types/signboard': 'plantSignboard',
+  'plant-types/drawing': 'plantDrawing',
+  'plant-types/registry': 'plantRegistry',
+  'plant-types/data': 'plantData',
+  'plant-types/photos': 'plantPhotos',
+  'projects': 'projects',
+  'achievement-table': 'achievementTable',
+  'goodness-sharing': 'goodnessSharing',
+  'study-area-map': 'studyAreaMap',
+  'integration-guide': 'integrationGuide',
+  'related-agencies': 'relatedAgencies',
+  'school-botanical': 'botanicalHistory',
+  'school-botanical/history': 'botanicalHistory',
+  'school-botanical/roles': 'botanicalRoles',
+  'personnel-structure': 'personnelStructure',
+  'college-map': 'collegeMap',
+  'news': 'news',
+  'explorer': 'explorer',
+  'categories': 'categories',
+  'about': 'about',
+  'dashboard': 'dashboard',
+  'addPlant': 'addPlant',
+  'register': 'register',
+  'plantDetail': 'plantDetail',
+};
+
+const PAGE_TO_HASH = Object.entries(HASH_TO_PAGE).reduce((acc, [hash, page]) => {
+  if (!acc[page]) acc[page] = hash;
+  return acc;
+}, {});
+
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState(() => {
+    // Check initial hash in URL
+    const initialHash = window.location.hash.replace(/^#\/?/, '');
+    if (initialHash && HASH_TO_PAGE[initialHash]) {
+      return HASH_TO_PAGE[initialHash];
+    }
+    return 'home';
+  });
+
   const [selectedPlantId, setSelectedPlantId] = useState('monstera-deliciosa');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  // Sync with browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const hash = window.location.hash.replace(/^#\/?/, '');
+      if (hash && HASH_TO_PAGE[hash]) {
+        setCurrentPage(HASH_TO_PAGE[hash]);
+      } else if (!hash) {
+        setCurrentPage('home');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Administrator authentication state
   const [currentUser, setCurrentUser] = useState(() => {
@@ -55,10 +137,16 @@ export default function App() {
     }
   };
 
-  // Smooth scroll to top when page changes
+  // Smooth scroll to top when page changes and update URL hash
   const navigateTo = (page) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    const targetHash = PAGE_TO_HASH[page];
+    if (targetHash && page !== 'home') {
+      window.history.pushState(null, '', `#/${targetHash}`);
+    } else if (page === 'home') {
+      window.history.pushState(null, '', window.location.pathname);
+    }
   };
 
   const handleSelectPlant = (plantId) => {
@@ -109,6 +197,7 @@ export default function App() {
 
   const renderCurrentPage = () => {
     switch (currentPage) {
+      // Existing Pages
       case 'home':
         return (
           <HomePage 
@@ -143,7 +232,6 @@ export default function App() {
           />
         );
       case 'addPlant':
-        // Protected Admin-only page
         if (!isAdmin) {
           return renderAdminGuard('หน้าเพิ่มข้อมูลพรรณไม้ใหม่ (Add Plant)');
         }
@@ -154,7 +242,6 @@ export default function App() {
           />
         );
       case 'dashboard':
-        // Protected Admin-only page
         if (!isAdmin) {
           return renderAdminGuard('แผงควบคุมระบบ (Dashboard)');
         }
@@ -183,6 +270,130 @@ export default function App() {
             onNavigate={navigateTo} 
           />
         );
+
+      // New Botanical Specification Pages
+      case 'plantStudy':
+        return (
+          <PlantStudyPage
+            onNavigate={navigateTo}
+            onSelectPlant={handleSelectPlant}
+          />
+        );
+      case 'fiveElements':
+        return (
+          <FiveElementsPage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'threeLearningAreas':
+        return (
+          <ThreeLearningAreasPage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'localResources':
+        return (
+          <LocalResourcesPage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'plantSignboard':
+        return (
+          <PlantSignboardPage
+            onNavigate={navigateTo}
+            onSelectPlant={handleSelectPlant}
+          />
+        );
+      case 'plantDrawing':
+        return (
+          <PlantDrawingPage
+            onNavigate={navigateTo}
+            onSelectPlant={handleSelectPlant}
+          />
+        );
+      case 'plantRegistry':
+        return (
+          <PlantRegistryPage
+            onNavigate={navigateTo}
+            onSelectPlant={handleSelectPlant}
+          />
+        );
+      case 'plantData':
+        return (
+          <PlantDataPage
+            onNavigate={navigateTo}
+            onSelectPlant={handleSelectPlant}
+          />
+        );
+      case 'plantPhotos':
+        return (
+          <PlantPhotosPage
+            onNavigate={navigateTo}
+            onSelectPlant={handleSelectPlant}
+          />
+        );
+      case 'projects':
+        return (
+          <ProjectsPage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'achievementTable':
+        return (
+          <AchievementTablePage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'goodnessSharing':
+        return (
+          <GoodnessSharingPage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'studyAreaMap':
+        return (
+          <StudyAreaMapPage
+            onNavigate={navigateTo}
+            onSelectPlant={handleSelectPlant}
+          />
+        );
+      case 'integrationGuide':
+        return (
+          <IntegrationGuidePage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'relatedAgencies':
+        return (
+          <RelatedAgenciesPage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'botanicalHistory':
+        return (
+          <BotanicalHistoryPage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'botanicalRoles':
+        return (
+          <BotanicalRolesPage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'personnelStructure':
+        return (
+          <PersonnelStructurePage
+            onNavigate={navigateTo}
+          />
+        );
+      case 'collegeMap':
+        return (
+          <CollegeMapPage
+            onNavigate={navigateTo}
+          />
+        );
+
       default:
         return (
           <HomePage 
@@ -199,7 +410,7 @@ export default function App() {
       {/* 
         Single Consolidated Navbar with Dropdown Menus 
         Title: งานสวนพฤกษศาสตร์โรงเรียน วิทยาลัยอาชีวศึกษาอุดรธานี
-        English: School Botanical Garden by Udonthani Vocatinoal College
+        English: School Botanical Garden by Udonthani Vocational College
       */}
       <Navbar
         currentPage={currentPage}
