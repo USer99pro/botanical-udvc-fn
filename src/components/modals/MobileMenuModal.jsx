@@ -286,17 +286,30 @@ export default function MobileMenuModal({
               </button>
             </div>
           ) : (
-            <button
-              type="button"
-              onClick={() => {
-                if (onClose) onClose();
-                if (onOpenLogin) onOpenLogin();
-              }}
-              className="w-full py-2.5 px-4 rounded-xl bg-primary text-on-primary text-xs font-semibold hover:bg-secondary transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-xs"
-            >
-              <span className="material-symbols-outlined text-sm">lock</span>
-              <span>เข้าสู่ระบบผู้ดูแลระบบ (Admin Login)</span>
-            </button>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  if (onClose) onClose();
+                  if (onNavigate) onNavigate('register');
+                }}
+                className="py-2.5 px-3 rounded-xl border border-secondary text-secondary hover:bg-secondary/10 text-xs font-bold transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+              >
+                <span className="material-symbols-outlined text-base">person_add</span>
+                <span>สมัครสมาชิก</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (onClose) onClose();
+                  if (onOpenLogin) onOpenLogin();
+                }}
+                className="py-2.5 px-3 rounded-xl bg-primary text-on-primary text-xs font-bold hover:bg-secondary transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-xs"
+              >
+                <span className="material-symbols-outlined text-base">admin_panel_settings</span>
+                <span>เข้าสู่ระบบ</span>
+              </button>
+            </div>
           )}
         </div>
       </nav>

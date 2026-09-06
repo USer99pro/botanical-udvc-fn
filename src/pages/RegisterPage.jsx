@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function RegisterPage({ onNavigate }) {
+export default function RegisterPage({ onNavigate, onOpenLogin }) {
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -50,8 +50,8 @@ export default function RegisterPage({ onNavigate }) {
                 onClick={() => handleNav('home')}
                 className="flex items-center gap-2 hover:opacity-80 transition-opacity"
               >
-                <span className="material-symbols-outlined text-3xl text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
-                <span className="font-headline-sm tracking-tight">Verdant Wisdom</span>
+                <span className="material-symbols-outlined text-3xl text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>local_florist</span>
+                <span className="font-headline-sm tracking-tight font-bold">สวนพฤกษศาสตร์ UDVC</span>
               </button>
               <button
                 type="button"
@@ -65,8 +65,8 @@ export default function RegisterPage({ onNavigate }) {
 
             {/* Form Header */}
             <div className="mb-8">
-              <h1 className="font-display-lg-mobile md:font-display-lg text-primary mb-2">สมัครสมาชิก</h1>
-              <p className="font-body-lg text-on-surface-variant">สร้างบัญชีเพื่อเริ่มต้นการเรียนรู้และเข้าถึงข้อมูลพรรณไม้</p>
+              <h1 className="font-display-lg-mobile md:font-display-lg text-primary mb-2 text-2xl md:text-3xl font-bold">สมัครสมาชิก</h1>
+              <p className="font-body-lg text-on-surface-variant text-sm">สร้างบัญชีเพื่อเริ่มต้นการเรียนรู้และเข้าถึงข้อมูลพรรณไม้</p>
             </div>
 
             {isSuccess ? (
@@ -79,7 +79,7 @@ export default function RegisterPage({ onNavigate }) {
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Input: Name */}
                 <div>
-                  <label className="font-label-sm text-on-surface block mb-2" htmlFor="name">ชื่อ-นามสกุล</label>
+                  <label className="font-label-sm text-on-surface block mb-2 text-xs font-semibold" htmlFor="name">ชื่อ-นามสกุล</label>
                   <input 
                     id="name" 
                     required 
@@ -87,13 +87,13 @@ export default function RegisterPage({ onNavigate }) {
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="เช่น สมชาย พฤกษศาสตร์"
-                    className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl py-3 px-4 text-body-md text-on-surface focus:ring-0 focus:border-secondary transition-colors"
+                    className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl py-3 px-4 text-sm text-on-surface focus:ring-0 focus:border-secondary transition-colors"
                   />
                 </div>
 
                 {/* Input: Email */}
                 <div>
-                  <label className="font-label-sm text-on-surface block mb-2" htmlFor="email">อีเมล</label>
+                  <label className="font-label-sm text-on-surface block mb-2 text-xs font-semibold" htmlFor="email">อีเมล</label>
                   <input 
                     id="email" 
                     required 
@@ -101,13 +101,13 @@ export default function RegisterPage({ onNavigate }) {
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="your.email@example.com"
-                    className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl py-3 px-4 text-body-md text-on-surface focus:ring-0 focus:border-secondary transition-colors"
+                    className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl py-3 px-4 text-sm text-on-surface focus:ring-0 focus:border-secondary transition-colors"
                   />
                 </div>
 
                 {/* Input: Password */}
                 <div>
-                  <label className="font-label-sm text-on-surface block mb-2" htmlFor="password">รหัสผ่าน</label>
+                  <label className="font-label-sm text-on-surface block mb-2 text-xs font-semibold" htmlFor="password">รหัสผ่าน</label>
                   <input 
                     id="password" 
                     required 
@@ -115,7 +115,7 @@ export default function RegisterPage({ onNavigate }) {
                     value={form.password}
                     onChange={(e) => setForm({ ...form, password: e.target.value })}
                     placeholder="••••••••"
-                    className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl py-3 px-4 text-body-md text-on-surface focus:ring-0 focus:border-secondary transition-colors"
+                    className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl py-3 px-4 text-sm text-on-surface focus:ring-0 focus:border-secondary transition-colors"
                   />
                 </div>
 
@@ -123,7 +123,7 @@ export default function RegisterPage({ onNavigate }) {
                 <div className="pt-2">
                   <button 
                     type="submit"
-                    className="w-full bg-primary text-on-primary font-label-md py-4 px-6 rounded-full hover:bg-secondary transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                    className="w-full bg-primary text-on-primary font-label-md py-3.5 px-6 rounded-full hover:bg-secondary transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer text-sm font-semibold"
                   >
                     <span>ลงทะเบียนสมาชิก</span>
                     <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -134,14 +134,17 @@ export default function RegisterPage({ onNavigate }) {
 
             {/* Footer Switcher */}
             <div className="mt-8 text-center border-t border-outline-variant/30 pt-6">
-              <p className="font-body-md text-on-surface-variant">
+              <p className="text-xs text-on-surface-variant">
                 มีบัญชีผู้ใช้แล้ว?{' '}
                 <button 
                   type="button" 
-                  onClick={() => handleNav('dashboard')}
-                  className="font-label-md text-secondary hover:text-primary underline decoration-secondary/30 underline-offset-4 transition-colors cursor-pointer"
+                  onClick={() => {
+                    if (onOpenLogin) onOpenLogin();
+                    else handleNav('dashboard');
+                  }}
+                  className="font-semibold text-secondary hover:text-primary underline decoration-secondary/30 underline-offset-4 transition-colors cursor-pointer ml-1"
                 >
-                  เข้าสู่ระบบเจ้าหน้าที่
+                  เข้าสู่ระบบ (เจ้าหน้าที่ / ผู้ดูแล)
                 </button>
               </p>
             </div>

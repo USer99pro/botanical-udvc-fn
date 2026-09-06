@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { menuItems } from '../../config/navigation';
 
 export default function Navbar({
   currentPage = 'home',
@@ -53,8 +52,8 @@ export default function Navbar({
     setOpenDropdown((prev) => (prev === id ? null : id));
   };
 
-  // Structured desktop nav sections linking all spec items cleanly
-  const desktopNavSections = [
+  // Navigation sections
+  const navSections = [
     {
       id: 'home',
       label: 'หน้าแรก',
@@ -64,10 +63,11 @@ export default function Navbar({
     },
     {
       id: 'study-group',
-      label: 'การศึกษาพรรณไม้',
+      label: 'พืชศึกษา',
       type: 'dropdown',
       icon: 'nature_people',
       badge: 'อพ.สธ.',
+      align: 'left',
       items: [
         {
           id: 'plantStudy',
@@ -100,9 +100,16 @@ export default function Navbar({
         {
           id: 'explorer',
           title: 'ทะเบียนพืชศึกษา (Explorer & Grid)',
-          description: 'สืบค้นฐานข้อมูลพรรณไม้ในระบบเดิม',
+          description: 'สืบค้นฐานข้อมูลพรรณไม้ ค้นหาตามชื่อวิทย์/ชื่อพื้นเมือง',
           icon: 'search_insights',
           pageId: 'explorer',
+        },
+        {
+          id: 'categories',
+          title: 'หมวดหมู่พันธุ์ไม้ (Collections)',
+          description: 'พืชดอก ไม้ใบประดับ สมุนไพร พืชอวบน้ำ',
+          icon: 'category',
+          pageId: 'categories',
         },
       ],
     },
@@ -112,11 +119,12 @@ export default function Navbar({
       type: 'dropdown',
       icon: 'forest',
       badge: 'หมวดหมู่',
+      align: 'left',
       items: [
         {
           id: 'plantSignboard',
           title: 'ป้ายพรรณไม้สมบูรณ์',
-          description: 'ป้ายชื่อพรรณไม้มาตรฐาน อพ.สธ. และ QR Code',
+          description: 'ป้ายชื่อพรรณไม้มาตรฐาน อพ.สธ. และ QR Code ประจำต้น',
           icon: 'badge',
           pageId: 'plantSignboard',
         },
@@ -129,8 +137,8 @@ export default function Navbar({
         },
         {
           id: 'plantRegistry',
-          title: 'ทะเบียนพรรณไม้',
-          description: 'สมุดทะเบียน ก.7-005 และระบบรหัสพรรณไม้',
+          title: 'ทะเบียนพรรณไม้ (ก.7-005)',
+          description: 'สมุดทะเบียนบันทึกและระบบรหัสพรรณไม้มาตรฐาน',
           icon: 'menu_book',
           pageId: 'plantRegistry',
         },
@@ -155,6 +163,7 @@ export default function Navbar({
       label: 'ผลงาน & กิจกรรม',
       type: 'dropdown',
       icon: 'emoji_events',
+      align: 'left',
       items: [
         {
           id: 'projects',
@@ -180,10 +189,11 @@ export default function Navbar({
       ],
     },
     {
-      id: 'maps-group',
+      id: 'maps-guide-group',
       label: 'แผนผัง & คู่มือ',
       type: 'dropdown',
       icon: 'map',
+      align: 'right',
       items: [
         {
           id: 'studyAreaMap',
@@ -210,9 +220,10 @@ export default function Navbar({
     },
     {
       id: 'about-group',
-      label: 'ประวัติ & องค์กร',
+      label: 'ข้อมูล & องค์กร',
       type: 'dropdown',
       icon: 'history_edu',
+      align: 'right',
       items: [
         {
           id: 'botanicalHistory',
@@ -244,8 +255,8 @@ export default function Navbar({
         },
         {
           id: 'about',
-          title: 'ข้อมูลงานสวนพฤกษศาสตร์ (หน้าเดิม)',
-          description: 'ข้อมูลความเป็นมาเดิมของระบบ',
+          title: 'ข้อมูลสวน & อนุรักษ์ (ระบบเดิม)',
+          description: 'วิสัยทัศน์ ความเป็นมา และคณะกรรมการดำเนินงานเดิม',
           icon: 'info',
           pageId: 'about',
         },
@@ -253,21 +264,22 @@ export default function Navbar({
     },
     {
       id: 'news',
-      label: 'ข่าวสารประชาสัมพันธ์',
+      label: 'ข่าวสาร',
       type: 'link',
       icon: 'newspaper',
       pageId: 'news',
     },
   ];
 
-  // Admin section
+  // Admin management section if logged in
   if (isAdmin) {
-    desktopNavSections.push({
+    navSections.push({
       id: 'management',
-      label: 'ระบบจัดการ (Admin)',
+      label: 'จัดการระบบ',
       type: 'dropdown',
       icon: 'admin_panel_settings',
-      badge: 'ผู้ดูแล',
+      badge: currentUser?.role === 'admin' ? 'Admin' : 'Staff',
+      align: 'right',
       items: [
         {
           id: 'dashboard',
@@ -293,34 +305,34 @@ export default function Navbar({
       className={`sticky top-0 left-0 w-full z-40 bg-surface/98 dark:bg-surface-dim/98 backdrop-blur-md border-b border-outline-variant/30 shadow-xs transition-all duration-300 ${className}`}
       id="full-navbar"
     >
-      <div className="w-full px-3 sm:px-6 lg:px-8 py-2.5 flex justify-between items-center gap-2 sm:gap-4">
-        {/* Brand Logo & Website Title */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+      <div className="w-full px-3 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3">
+        {/* 1. Far Left: Logo & College Title (โลโก้อยู่ซ้ายมือสุดเสมอ) */}
+        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
           <button
             type="button"
             onClick={() => handleNav('home')}
             className="text-left cursor-pointer group flex items-center gap-2.5 sm:gap-3"
             title="งานสวนพฤกษศาสตร์โรงเรียน วิทยาลัยอาชีวศึกษาอุดรธานี"
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-secondary/15 flex items-center justify-center text-secondary group-hover:scale-105 group-hover:bg-secondary/25 transition-all shadow-2xs shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-secondary/15 flex items-center justify-center text-secondary group-hover:scale-105 group-hover:bg-secondary/25 transition-all shadow-2xs shrink-0">
               <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
                 local_florist
               </span>
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="font-bold text-xs sm:text-sm md:text-base text-primary leading-tight tracking-tight whitespace-nowrap truncate max-w-[200px] sm:max-w-none">
-                งานสวนพฤกษศาสตร์โรงเรียน วอศ.อุดรธานี
+              <span className="font-bold text-xs sm:text-sm md:text-base text-primary leading-tight tracking-tight whitespace-nowrap">
+                สวนพฤกษศาสตร์ วอศ.อุดรธานี
               </span>
-              <span className="text-[9px] sm:text-[10px] md:text-[11px] font-medium text-secondary tracking-wide uppercase truncate max-w-[200px] sm:max-w-md xl:max-w-none">
-                School Botanical Garden by Udonthani Vocational College
+              <span className="text-[9px] sm:text-[10px] md:text-[11px] font-medium text-secondary tracking-wide uppercase truncate max-w-[180px] sm:max-w-xs md:max-w-none">
+                School Botanical Garden UDVC
               </span>
             </div>
           </button>
         </div>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden xl:flex items-center space-x-1 font-body-md text-xs sm:text-sm">
-          {desktopNavSections.map((item) => {
+        {/* 2. Middle: Desktop Navigation Menus (Visible on XL+ screens) */}
+        <nav className="hidden xl:flex items-center space-x-0.5 2xl:space-x-1 font-body-md text-xs 2xl:text-[13px] shrink-0">
+          {navSections.map((item) => {
             if (item.type === 'link') {
               const isActive = currentPage === item.pageId;
               return (
@@ -328,7 +340,7 @@ export default function Navbar({
                   key={item.id}
                   type="button"
                   onClick={() => handleNav(item.pageId)}
-                  className={`px-3 py-2 rounded-xl font-medium transition-all duration-200 cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
+                  className={`px-2.5 py-1.5 2xl:px-3 2xl:py-2 rounded-xl font-medium transition-all duration-150 cursor-pointer flex items-center gap-1 whitespace-nowrap ${
                     isActive
                       ? 'text-primary font-bold bg-secondary-container/50'
                       : 'text-on-surface-variant hover:text-primary hover:bg-surface-container'
@@ -345,13 +357,13 @@ export default function Navbar({
             const hasActiveChild = item.items.some((sub) => sub.pageId === currentPage);
 
             return (
-              <div key={item.id} className="relative group">
+              <div key={item.id} className="relative group shrink-0">
                 <button
                   type="button"
                   aria-expanded={isOpen}
                   aria-haspopup="true"
                   onClick={() => toggleDropdown(item.id)}
-                  className={`px-3 py-2 rounded-xl font-medium transition-all duration-200 cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
+                  className={`px-2.5 py-1.5 2xl:px-3 2xl:py-2 rounded-xl font-medium transition-all duration-150 cursor-pointer flex items-center gap-1 whitespace-nowrap ${
                     isOpen || hasActiveChild
                       ? 'text-primary font-bold bg-secondary-container/50'
                       : 'text-on-surface-variant hover:text-primary hover:bg-surface-container'
@@ -359,13 +371,8 @@ export default function Navbar({
                 >
                   <span className="material-symbols-outlined text-base">{item.icon}</span>
                   <span>{item.label}</span>
-                  {item.badge && (
-                    <span className="px-1.5 py-0.2 text-[10px] font-semibold rounded-full bg-secondary/15 text-secondary">
-                      {item.badge}
-                    </span>
-                  )}
                   <span
-                    className={`material-symbols-outlined text-base transition-transform duration-200 ${
+                    className={`material-symbols-outlined text-sm transition-transform duration-200 ${
                       isOpen ? 'rotate-180 text-primary' : 'text-on-surface-variant/70'
                     }`}
                   >
@@ -377,21 +384,23 @@ export default function Navbar({
                 {isOpen && (
                   <div
                     role="menu"
-                    className="absolute left-0 mt-2 w-80 p-2.5 bg-surface/98 dark:bg-surface-dim/98 backdrop-blur-xl rounded-2xl shadow-2xl border border-outline-variant/30 z-50 animate-fade-in"
+                    className={`absolute ${
+                      item.align === 'right' ? 'right-0' : 'left-0'
+                    } mt-2 w-72 sm:w-80 p-2 bg-surface/98 dark:bg-surface-dim/98 backdrop-blur-xl rounded-2xl shadow-2xl border border-outline-variant/30 z-50 animate-fade-in`}
                   >
-                    <div className="px-3 py-1.5 border-b border-outline-variant/15 mb-1.5 flex items-center justify-between">
+                    <div className="px-2.5 py-1 border-b border-outline-variant/15 mb-1 flex items-center justify-between">
                       <span className="text-[11px] font-bold uppercase tracking-wider text-secondary flex items-center gap-1.5">
                         <span className="material-symbols-outlined text-sm">{item.icon}</span>
                         <span>{item.label}</span>
                       </span>
                       {item.badge && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-secondary/15 text-secondary font-semibold">
+                        <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-secondary/15 text-secondary font-bold">
                           {item.badge}
                         </span>
                       )}
                     </div>
 
-                    <div className="space-y-1">
+                    <div className="space-y-0.5 max-h-[70vh] overflow-y-auto">
                       {item.items.map((subItem) => {
                         const isSubActive = subItem.pageId && currentPage === subItem.pageId;
                         return (
@@ -413,15 +422,13 @@ export default function Navbar({
                                   : 'bg-surface-container text-secondary group-hover/sub:bg-secondary group-hover/sub:text-on-secondary'
                               }`}
                             >
-                              <span className="material-symbols-outlined text-lg">{subItem.icon}</span>
+                              <span className="material-symbols-outlined text-base">{subItem.icon}</span>
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-center justify-between gap-1">
-                                <span className="text-xs sm:text-sm font-medium tracking-tight truncate">
-                                  {subItem.title}
-                                </span>
+                              <div className="text-xs font-semibold tracking-tight truncate">
+                                {subItem.title}
                               </div>
-                              <p className="text-[11px] text-on-surface-variant/80 font-normal line-clamp-1 mt-0.5">
+                              <p className="text-[10px] text-on-surface-variant/80 font-normal line-clamp-1 mt-0.5">
                                 {subItem.description}
                               </p>
                             </div>
@@ -436,52 +443,82 @@ export default function Navbar({
           })}
         </nav>
 
-        {/* Right Side: Search + Admin Auth + Mobile Menu Toggle */}
-        <div className="flex items-center gap-2 shrink-0">
+        {/* 3. Far Right: Actions (ค้นหา + สมัครสมาชิก + เข้าสู่ระบบ + Hamburger บนจอเล็ก) */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-auto xl:ml-0">
+          {/* Search Button */}
           {onOpenSearch && (
             <button
               type="button"
               onClick={onOpenSearch}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant/40 hover:border-secondary text-xs text-on-surface-variant transition-all cursor-pointer shadow-2xs"
+              className="p-2 rounded-full hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center gap-1"
               title="ค้นหาพรรณไม้ด่วน (Ctrl+K)"
+              aria-label="ค้นหาพรรณไม้"
             >
-              <span className="material-symbols-outlined text-base text-secondary">search</span>
-              <span className="hidden sm:inline text-xs">ค้นหา...</span>
+              <span className="material-symbols-outlined text-xl text-secondary">search</span>
+              <span className="hidden 2xl:inline text-xs font-medium text-on-surface-variant">ค้นหา</span>
             </button>
           )}
 
-          {/* Admin Login / Logout */}
-          {isAdmin ? (
-            <div className="flex items-center gap-1.5 pl-1.5 border-l border-outline-variant/30">
-              <span className="hidden md:inline text-xs font-semibold text-secondary">
-                {currentUser?.name || 'ผู้ดูแล'}
-              </span>
+          {/* Auth Section: Register + Login or Logged In State */}
+          {!isAdmin ? (
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              {/* ปุ่มสมัครสมาชิก */}
               <button
                 type="button"
-                onClick={onLogout}
-                className="px-2.5 py-1.5 rounded-full border border-outline-variant/50 text-xs font-semibold hover:bg-error-container/20 hover:text-error transition-colors"
-                title="ออกจากระบบ"
+                onClick={() => handleNav('register')}
+                className={`inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full border text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shadow-2xs ${
+                  currentPage === 'register'
+                    ? 'bg-secondary text-on-secondary border-secondary'
+                    : 'border-secondary/40 text-secondary hover:bg-secondary/10 hover:border-secondary'
+                }`}
+                title="สมัครสมาชิกใหม่"
               >
-                <span className="material-symbols-outlined text-sm">logout</span>
+                <span className="material-symbols-outlined text-base">person_add</span>
+                <span className="hidden sm:inline">สมัครสมาชิก</span>
+              </button>
+
+              {/* ปุ่มเข้าสู่ระบบ */}
+              <button
+                type="button"
+                onClick={onOpenLogin}
+                className="inline-flex items-center gap-1 sm:gap-1.5 bg-primary text-on-primary hover:bg-secondary text-xs font-semibold px-3 py-1.5 sm:px-4 sm:py-1.5 rounded-full transition-all shadow-2xs cursor-pointer whitespace-nowrap"
+                title="เข้าสู่ระบบสำหรับผู้ดูแลระบบและเจ้าหน้าที่"
+              >
+                <span className="material-symbols-outlined text-base">admin_panel_settings</span>
+                <span>เข้าสู่ระบบ</span>
               </button>
             </div>
           ) : (
-            <button
-              type="button"
-              onClick={onOpenLogin}
-              className="inline-flex items-center gap-1 bg-primary text-on-primary text-xs px-3 py-1.5 rounded-full hover:bg-secondary transition-colors cursor-pointer whitespace-nowrap"
-              title="เข้าสู่ระบบผู้ดูแล"
-            >
-              <span className="material-symbols-outlined text-sm">lock</span>
-              <span className="hidden sm:inline">ผู้ดูแล</span>
-            </button>
+            /* เมื่อเข้าสู่ระบบแล้ว: แสดงสถานะและปุ่มออกจากระบบ */
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <div
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-secondary/15 text-secondary text-xs font-bold"
+                title={`${currentUser?.name || 'ผู้ใช้งาน'} (${currentUser?.roleLabel || (currentUser?.role === 'admin' ? 'ผู้ดูแลระบบ' : 'เจ้าหน้าที่')})`}
+              >
+                <span className="material-symbols-outlined text-sm">
+                  {currentUser?.role === 'admin' ? 'shield_person' : 'badge'}
+                </span>
+                <span className="hidden sm:inline truncate max-w-[120px]">
+                  {currentUser?.role === 'admin' ? 'ผู้ดูแลระบบ' : 'เจ้าหน้าที่'}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={onLogout}
+                className="p-1.5 sm:px-3 sm:py-1.5 rounded-full border border-outline-variant/50 hover:bg-error-container/20 hover:text-error text-xs font-semibold text-on-surface-variant transition-colors cursor-pointer flex items-center gap-1"
+                title="ออกจากระบบ"
+              >
+                <span className="material-symbols-outlined text-sm">logout</span>
+                <span className="hidden sm:inline">ออก</span>
+              </button>
+            </div>
           )}
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Toggle (Visible on screens < xl) */}
           <button
             type="button"
             onClick={onOpenMobileMenu}
-            className="xl:hidden p-2 text-primary hover:bg-surface-container rounded-lg transition-colors cursor-pointer"
+            className="xl:hidden p-2 text-primary hover:bg-surface-container rounded-xl transition-colors cursor-pointer shrink-0"
             aria-label="เปิดเมนูนำทาง"
           >
             <span className="material-symbols-outlined text-2xl">menu</span>

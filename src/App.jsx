@@ -254,7 +254,8 @@ export default function App() {
       case 'register':
         return (
           <RegisterPage 
-            onNavigate={navigateTo} 
+            onNavigate={navigateTo}
+            onOpenLogin={() => setIsLoginOpen(true)}
           />
         );
       case 'news':
@@ -451,6 +452,7 @@ export default function App() {
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}
         onLoginSuccess={handleLoginSuccess}
+        onNavigate={navigateTo}
       />
     </div>
   );
