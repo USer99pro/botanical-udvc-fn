@@ -54,10 +54,14 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess, onNav
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in"
       onClick={onClose}
+      role="presentation"
     >
       <div
         className="relative w-full max-w-md bg-surface-container-lowest dark:bg-surface-dim rounded-3xl p-6 md:p-8 shadow-2xl border border-outline-variant/30 text-on-surface"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="admin-login-title"
       >
         {/* Close Button */}
         <button
@@ -69,31 +73,21 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess, onNav
           <span className="material-symbols-outlined text-xl">close</span>
         </button>
 
-        {/* Icon & Title */}
-        <div className="text-center mb-6">
-          <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-secondary/15 flex items-center justify-center text-secondary">
-            <span className="material-symbols-outlined text-3xl">admin_panel_settings</span>
-          </div>
-          <h2 className="font-headline-sm text-xl sm:text-2xl font-bold text-primary">
-            เข้าสู่ระบบสำหรับผู้ดูแลระบบและเจ้าหน้าที่
+        <div className="mb-6 text-center">
+          <h2 id="admin-login-title" className="font-headline-sm text-xl sm:text-2xl font-bold text-primary">
+            เข้าสู่ระบบ
           </h2>
           <p className="font-body-md text-xs text-on-surface-variant mt-1">
-            งานสวนพฤกษศาสตร์โรงเรียน วิทยาลัยอาชีวศึกษาอุดรธานี
+            สำหรับผู้ดูแลระบบและเจ้าหน้าที่งานสวนพฤกษศาสตร์โรงเรียน
           </p>
-          <div className="flex items-center justify-center gap-2 mt-2">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-primary/10 text-primary">
-              ผู้ดูแลระบบ (Admin)
-            </span>
-            <span className="text-outline-variant">•</span>
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-secondary/15 text-secondary">
-              เจ้าหน้าที่ (Staff)
-            </span>
-          </div>
         </div>
 
         {/* Error Alert */}
         {error && (
-          <div className="mb-4 p-3 rounded-xl bg-error-container/60 border border-error/30 text-on-error-container text-xs flex items-center gap-2">
+          <div
+            className="mb-4 flex items-center gap-2 rounded-xl border border-error/30 bg-error-container/60 p-3 text-xs text-on-error-container"
+            role="alert"
+          >
             <span className="material-symbols-outlined text-[18px] text-error">error</span>
             <span>{error}</span>
           </div>
@@ -102,18 +96,21 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess, onNav
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-on-surface-variant mb-1.5">
+            <label htmlFor="admin-login-username" className="block text-xs font-semibold text-on-surface-variant mb-1.5">
               ชื่อผู้ใช้งาน (Username)
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">
+              <span className="material-symbols-outlined pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-lg leading-none text-on-surface-variant">
                 person
               </span>
               <input
+                id="admin-login-username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="อีเมล หรือชื่อผู้ใช้"
+                autoComplete="username"
+                aria-invalid={Boolean(error)}
                 className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl py-2.5 pl-10 pr-4 text-sm font-body-md focus:border-secondary focus:bg-surface-container-lowest focus:ring-1 focus:ring-secondary/30 outline-hidden transition-all"
                 required
               />
@@ -121,24 +118,25 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess, onNav
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-on-surface-variant mb-1.5">
+            <label htmlFor="admin-login-password" className="block text-xs font-semibold text-on-surface-variant mb-1.5">
               รหัสผ่าน (Password)
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">
+              <span className="material-symbols-outlined pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-lg leading-none text-on-surface-variant">
                 lock
               </span>
               <input
+                id="admin-login-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl py-2.5 pl-10 pr-4 text-sm font-body-md focus:border-secondary focus:bg-surface-container-lowest focus:ring-1 focus:ring-secondary/30 outline-hidden transition-all"
+                autoComplete="current-password"
+                className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl py-2.5 pl-10 pr-4 text-sm font-body-md focus:border-secondary focus:bg-surface-container-lowest focus:ring-1 focus:ring-secondary/30 outline-hidden transition-all material-symbols-outlined text-lg"
                 required
               />
             </div>
           </div>
-
           <button
             type="submit"
             disabled={isLoading}
