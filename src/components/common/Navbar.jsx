@@ -159,12 +159,19 @@ export default function Navbar({
       ],
     },
     {
-      id: 'works-group',
-      label: 'ผลงาน & กิจกรรม',
+      id: 'news-group',
+      label: 'ข่าวสาร',
       type: 'dropdown',
-      icon: 'emoji_events',
+      icon: 'newspaper',
       align: 'left',
       items: [
+        {
+          id: 'news',
+          title: 'ข่าวสารประชาสัมพันธ์',
+          description: 'ข่าวประกาศ กิจกรรม และข้อมูลประชาสัมพันธ์ของสวนพฤกษศาสตร์',
+          icon: 'newspaper',
+          pageId: 'news',
+        },
         {
           id: 'projects',
           title: 'ผลงานและนวัตกรรม',
@@ -262,13 +269,6 @@ export default function Navbar({
         },
       ],
     },
-    {
-      id: 'news',
-      label: 'ข่าวสาร',
-      type: 'link',
-      icon: 'newspaper',
-      pageId: 'news',
-    },
   ];
 
   // Admin management section if logged in
@@ -302,7 +302,10 @@ export default function Navbar({
   return (
     <header
       ref={navRef}
-      className={`sticky top-0 left-0 w-full z-40 bg-surface/98 dark:bg-surface-dim/98 backdrop-blur-md border-b border-outline-variant/30 shadow-xs transition-all duration-300 ${className}`}
+      className={`sticky top-0 left-0 w-full max-w-full z-40 overflow-visible
+    bg-surface/98 dark:bg-surface-dim/98 backdrop-blur-md
+    border-b border-outline-variant/30 shadow-xs
+    transition-all duration-300 ${className}`}
       id="full-navbar"
     >
       <div className="w-full px-3 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3">
@@ -331,7 +334,7 @@ export default function Navbar({
         </div>
 
         {/* 2. Middle: Desktop Navigation Menus (Visible on XL+ screens) */}
-        <nav className="hidden xl:flex items-center space-x-0.5 2xl:space-x-1 font-body-md text-xs 2xl:text-[13px] shrink-0">
+        <nav className="hidden xl:flex flex-1 min-w-0 items-center justify-center gap-0.5 2xl:gap-1 font-body-md text-xs 2xl:text-[13px] overflow-visible flex-wrap px-1">
           {navSections.map((item) => {
             if (item.type === 'link') {
               const isActive = currentPage === item.pageId;
@@ -340,11 +343,10 @@ export default function Navbar({
                   key={item.id}
                   type="button"
                   onClick={() => handleNav(item.pageId)}
-                  className={`px-2.5 py-1.5 2xl:px-3 2xl:py-2 rounded-xl font-medium transition-all duration-150 cursor-pointer flex items-center gap-1 whitespace-nowrap ${
-                    isActive
+                  className={`px-2.5 py-1.5 2xl:px-3 2xl:py-2 rounded-xl font-medium transition-all duration-150 cursor-pointer flex items-center gap-1 whitespace-nowrap ${isActive
                       ? 'text-primary font-bold bg-secondary-container/50'
                       : 'text-on-surface-variant hover:text-primary hover:bg-surface-container'
-                  }`}
+                    }`}
                 >
                   <span className="material-symbols-outlined text-base">{item.icon}</span>
                   <span>{item.label}</span>
@@ -363,18 +365,16 @@ export default function Navbar({
                   aria-expanded={isOpen}
                   aria-haspopup="true"
                   onClick={() => toggleDropdown(item.id)}
-                  className={`px-2.5 py-1.5 2xl:px-3 2xl:py-2 rounded-xl font-medium transition-all duration-150 cursor-pointer flex items-center gap-1 whitespace-nowrap ${
-                    isOpen || hasActiveChild
+                  className={`px-2.5 py-1.5 2xl:px-3 2xl:py-2 rounded-xl font-medium transition-all duration-150 cursor-pointer flex items-center gap-1 whitespace-nowrap ${isOpen || hasActiveChild
                       ? 'text-primary font-bold bg-secondary-container/50'
                       : 'text-on-surface-variant hover:text-primary hover:bg-surface-container'
-                  }`}
+                    }`}
                 >
                   <span className="material-symbols-outlined text-base">{item.icon}</span>
                   <span>{item.label}</span>
                   <span
-                    className={`material-symbols-outlined text-sm transition-transform duration-200 ${
-                      isOpen ? 'rotate-180 text-primary' : 'text-on-surface-variant/70'
-                    }`}
+                    className={`material-symbols-outlined text-sm transition-transform duration-200 ${isOpen ? 'rotate-180 text-primary' : 'text-on-surface-variant/70'
+                      }`}
                   >
                     expand_more
                   </span>
@@ -384,9 +384,8 @@ export default function Navbar({
                 {isOpen && (
                   <div
                     role="menu"
-                    className={`absolute ${
-                      item.align === 'right' ? 'right-0' : 'left-0'
-                    } mt-2 w-72 sm:w-80 p-2 bg-surface/98 dark:bg-surface-dim/98 backdrop-blur-xl rounded-2xl shadow-2xl border border-outline-variant/30 z-50 animate-fade-in`}
+                    className={`absolute ${item.align === 'right' ? 'right-0' : 'left-0'
+                      } mt-2 w-72 sm:w-80 p-2 bg-surface/98 dark:bg-surface-dim/98 backdrop-blur-xl rounded-2xl shadow-2xl border border-outline-variant/30 z-50 animate-fade-in`}
                   >
                     <div className="px-2.5 py-1 border-b border-outline-variant/15 mb-1 flex items-center justify-between">
                       <span className="text-[11px] font-bold uppercase tracking-wider text-secondary flex items-center gap-1.5">
@@ -409,18 +408,16 @@ export default function Navbar({
                             type="button"
                             role="menuitem"
                             onClick={() => handleNav(subItem.pageId)}
-                            className={`w-full text-left p-2 rounded-xl transition-all duration-150 flex items-start gap-2.5 group/sub cursor-pointer ${
-                              isSubActive
+                            className={`w-full text-left p-2 rounded-xl transition-all duration-150 flex items-start gap-2.5 group/sub cursor-pointer ${isSubActive
                                 ? 'bg-secondary-container/40 text-primary font-semibold'
                                 : 'hover:bg-surface-container-high text-on-surface'
-                            }`}
+                              }`}
                           >
                             <div
-                              className={`p-1.5 rounded-lg mt-0.5 transition-colors shrink-0 ${
-                                isSubActive
+                              className={`p-1.5 rounded-lg mt-0.5 transition-colors shrink-0 ${isSubActive
                                   ? 'bg-secondary text-on-secondary'
                                   : 'bg-surface-container text-secondary group-hover/sub:bg-secondary group-hover/sub:text-on-secondary'
-                              }`}
+                                }`}
                             >
                               <span className="material-symbols-outlined text-base">{subItem.icon}</span>
                             </div>
@@ -443,7 +440,7 @@ export default function Navbar({
           })}
         </nav>
 
-        {/* 3. Far Right: Actions (ค้นหา + สมัครสมาชิก + เข้าสู่ระบบ + Hamburger บนจอเล็ก) */}
+        {/* 3. Far Right: Actions (ค้นหา + เข้าสู่ระบบ/สมัครสมาชิก + Hamburger บนจอเล็ก) */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-auto xl:ml-0">
           {/* Search Button */}
           {onOpenSearch && (
@@ -459,33 +456,18 @@ export default function Navbar({
             </button>
           )}
 
-          {/* Auth Section: Register + Login or Logged In State */}
+          {/* Auth Section: Login/Register entry point or Logged In State */}
           {!isAdmin ? (
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-              {/* ปุ่มสมัครสมาชิก */}
-              <button
-                type="button"
-                onClick={() => handleNav('register')}
-                className={`inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full border text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shadow-2xs ${
-                  currentPage === 'register'
-                    ? 'bg-secondary text-on-secondary border-secondary'
-                    : 'border-secondary/40 text-secondary hover:bg-secondary/10 hover:border-secondary'
-                }`}
-                title="สมัครสมาชิกใหม่"
-              >
-                <span className="material-symbols-outlined text-base">person_add</span>
-                <span className="hidden sm:inline">สมัครสมาชิก</span>
-              </button>
-
-              {/* ปุ่มเข้าสู่ระบบ */}
               <button
                 type="button"
                 onClick={onOpenLogin}
                 className="inline-flex items-center gap-1 sm:gap-1.5 bg-primary text-on-primary hover:bg-secondary text-xs font-semibold px-3 py-1.5 sm:px-4 sm:py-1.5 rounded-full transition-all shadow-2xs cursor-pointer whitespace-nowrap"
-                title="เข้าสู่ระบบสำหรับผู้ดูแลระบบและเจ้าหน้าที่"
+                title="เข้าสู่ระบบหรือสมัครสมาชิก"
               >
-                <span className="material-symbols-outlined text-base">admin_panel_settings</span>
-                <span>เข้าสู่ระบบ</span>
+                <span className="material-symbols-outlined text-base">person</span>
+                <span className="sm:hidden">เข้าสู่ระบบ</span>
+                <span className="hidden sm:inline">เข้าสู่ระบบ</span>
               </button>
             </div>
           ) : (

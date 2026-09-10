@@ -13,7 +13,7 @@ export default function MobileMenuModal({
   const [openSections, setOpenSections] = useState({
     study: true,
     plantTypes: false,
-    works: false,
+    news: false,
     maps: false,
     about: false,
     admin: false,
@@ -60,10 +60,11 @@ export default function MobileMenuModal({
       ],
     },
     {
-      key: 'works',
-      title: 'ผลงาน & กิจกรรม',
-      icon: 'emoji_events',
+      key: 'news',
+      title: 'ข่าวสาร',
+      icon: 'newspaper',
       items: [
+        { id: 'news', label: 'ข่าวสารประชาสัมพันธ์', icon: 'newspaper' },
         { id: 'projects', label: 'ผลงานและนวัตกรรม', icon: 'lightbulb' },
         { id: 'achievementTable', label: 'ตารางสะสมผลงาน', icon: 'emoji_events' },
         { id: 'goodnessSharing', label: 'แบ่งปันความดี', icon: 'volunteer_activism' },
@@ -160,19 +161,6 @@ export default function MobileMenuModal({
               <span className="material-symbols-outlined text-xs text-secondary">arrow_forward</span>
             </button>
           )}
-
-          {/* News Link */}
-          <button
-            type="button"
-            onClick={() => handleNav('news')}
-            className="w-full flex items-center justify-between p-3 rounded-xl bg-surface-container/60 hover:bg-secondary-container/40 text-primary font-semibold text-xs transition-colors cursor-pointer text-left"
-          >
-            <div className="flex items-center gap-2.5">
-              <span className="material-symbols-outlined text-secondary text-lg">newspaper</span>
-              <span>ข่าวสารประชาสัมพันธ์ (News)</span>
-            </div>
-            <span className="material-symbols-outlined text-xs text-secondary">arrow_forward</span>
-          </button>
 
           {/* Section Accordions */}
           {mobileSections.map((sec) => {

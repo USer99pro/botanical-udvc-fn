@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { register } from '../services/api';
 
 export default function RegisterPage({ onNavigate, onOpenLogin }) {
   const [form, setForm] = useState({
@@ -7,18 +8,35 @@ export default function RegisterPage({ onNavigate, onOpenLogin }) {
     password: '',
   });
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleNav = (page) => {
     if (onNavigate) onNavigate(page);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setIsSubmitting(true);
+    const result = await register({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      password: form.password,
+    });
+    setIsSubmitting(false);
+
+    if (result.error) {
+      setError(result.error);
+      return;
+    }
+
     setIsSuccess(true);
     setTimeout(() => {
       setIsSuccess(false);
-      handleNav('home');
-    }, 1800);
+      if (onOpenLogin) onOpenLogin();
+      else handleNav('home');
+    }, 1500);
   };
 
   return (
@@ -68,6 +86,13 @@ export default function RegisterPage({ onNavigate, onOpenLogin }) {
               <h1 className="font-display-lg-mobile md:font-display-lg text-primary mb-2 text-2xl md:text-3xl font-bold">สมัครสมาชิก</h1>
               <p className="font-body-lg text-on-surface-variant text-sm">สร้างบัญชีเพื่อเริ่มต้นการเรียนรู้และเข้าถึงข้อมูลพรรณไม้</p>
             </div>
+
+            {error && (
+              <div className="mb-4 p-3 rounded-xl bg-error-container/60 border border-error/30 text-on-error-container text-xs flex items-center gap-2">
+                <span className="material-symbols-outlined text-[18px] text-error">error</span>
+                <span>{error}</span>
+              </div>
+            )}
 
             {isSuccess ? (
               <div className="p-6 bg-secondary-container text-on-secondary-container rounded-2xl space-y-2 text-center animate-fade-in shadow-sm">
@@ -123,9 +148,10 @@ export default function RegisterPage({ onNavigate, onOpenLogin }) {
                 <div className="pt-2">
                   <button 
                     type="submit"
-                    className="w-full bg-primary text-on-primary font-label-md py-3.5 px-6 rounded-full hover:bg-secondary transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer text-sm font-semibold"
+                    disabled={isSubmitting}
+                    className="w-full bg-primary text-on-primary font-label-md py-3.5 px-6 rounded-full hover:bg-secondary transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer text-sm font-semibold disabled:opacity-50"
                   >
-                    <span>ลงทะเบียนสมาชิก</span>
+                    <span>{isSubmitting ? 'กำลังบันทึก...' : 'ลงทะเบียนสมาชิก'}</span>
                     <span className="material-symbols-outlined text-sm">arrow_forward</span>
                   </button>
                 </div>

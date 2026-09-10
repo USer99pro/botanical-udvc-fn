@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { login } from '../../services/api';
 
 export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess, onNavigate }) {
   const [username, setUsername] = useState('');
@@ -8,11 +9,11 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess, onNav
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
-    const u = username.trim().toLowerCase();
+    const u = username.trim();
     const p = password.trim();
 
     if (!u || !p) {
@@ -21,66 +22,25 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess, onNav
     }
 
     setIsLoading(true);
+    const result = await login({
+      email: u.includes('@') ? u : undefined,
+      username: u,
+      password: p,
+    });
+    setIsLoading(false);
 
-    setTimeout(() => {
-      setIsLoading(false);
+    if (result.error || !result.data?.user) {
+      setError(result.error || 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');
+      return;
+    }
 
-      // Admin account
-      if ((u === 'admin' && p === 'admin123') || (u === 'udvc' && p === 'udvc2024')) {
-        const user = {
-          username: u,
-          name: 'ผู้ดูแลระบบงานสวนพฤกษศาสตร์',
-          role: 'admin',
-          roleLabel: 'ผู้ดูแลระบบ (Admin)',
-          loggedInAt: new Date().toISOString(),
-        };
-        try {
-          localStorage.setItem('udvc_botanical_admin', JSON.stringify(user));
-        } catch {
-          // ignore
-        }
-        if (onLoginSuccess) onLoginSuccess(user);
-        if (onClose) onClose();
-      } 
-      // Staff / Officer account
-      else if ((u === 'staff' && p === 'staff123') || (u === 'officer' && p === 'officer123')) {
-        const user = {
-          username: u,
-          name: 'เจ้าหน้าที่งานสวนพฤกษศาสตร์',
-          role: 'staff',
-          roleLabel: 'เจ้าหน้าที่ (Staff)',
-          loggedInAt: new Date().toISOString(),
-        };
-        try {
-          localStorage.setItem('udvc_botanical_admin', JSON.stringify(user));
-        } catch {
-          // ignore
-        }
-        if (onLoginSuccess) onLoginSuccess(user);
-        if (onClose) onClose();
-      } else {
-        setError('ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง (ทดสอบ: admin / admin123 หรือ staff / staff123)');
-      }
-    }, 400);
-  };
-
-  const handleQuickLogin = (roleType) => {
-    const user = roleType === 'admin' 
-      ? {
-          username: 'admin',
-          name: 'ผู้ดูแลระบบงานสวนพฤกษศาสตร์',
-          role: 'admin',
-          roleLabel: 'ผู้ดูแลระบบ (Admin)',
-          loggedInAt: new Date().toISOString(),
-        }
-      : {
-          username: 'staff',
-          name: 'เจ้าหน้าที่งานสวนพฤกษศาสตร์',
-          role: 'staff',
-          roleLabel: 'เจ้าหน้าที่ (Staff)',
-          loggedInAt: new Date().toISOString(),
-        };
-
+    const user = {
+      ...result.data.user,
+      username: result.data.user.email || u,
+      role: String(result.data.user.role || 'Viewer').toLowerCase(),
+      roleLabel: result.data.user.role || 'สมาชิก',
+      loggedInAt: new Date().toISOString(),
+    };
     try {
       localStorage.setItem('udvc_botanical_admin', JSON.stringify(user));
     } catch {
@@ -153,7 +113,7 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess, onNav
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="admin หรือ staff"
+                placeholder="อีเมล หรือชื่อผู้ใช้"
                 className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl py-2.5 pl-10 pr-4 text-sm font-body-md focus:border-secondary focus:bg-surface-container-lowest focus:ring-1 focus:ring-secondary/30 outline-hidden transition-all"
                 required
               />
@@ -208,31 +168,6 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess, onNav
           >
             สมัครสมาชิกใหม่ที่นี่
           </button>
-        </div>
-
-        {/* Quick Demo Access for both Admin and Staff */}
-        <div className="mt-5 pt-4 border-t border-outline-variant/20">
-          <p className="text-[11px] text-center text-on-surface-variant font-medium mb-3">
-            ทดลองเข้าสู่ระบบด่วน (Quick Demo Access):
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('admin')}
-              className="py-2 px-3 rounded-xl border border-primary/30 hover:bg-primary/10 text-primary font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-1.5"
-            >
-              <span className="material-symbols-outlined text-sm">shield_person</span>
-              <span>ผู้ดูแลระบบ (Admin)</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('staff')}
-              className="py-2 px-3 rounded-xl border border-secondary/30 hover:bg-secondary/10 text-secondary font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-1.5"
-            >
-              <span className="material-symbols-outlined text-sm">badge</span>
-              <span>เจ้าหน้าที่ (Staff)</span>
-            </button>
-          </div>
         </div>
       </div>
     </div>
