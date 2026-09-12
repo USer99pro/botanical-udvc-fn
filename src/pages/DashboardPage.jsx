@@ -91,6 +91,16 @@ export default function DashboardPage({ onNavigate, onSelectPlant }) {
           <li>
             <button
               type="button"
+              onClick={() => handleNav('userManagement')}
+              className="w-full flex items-center space-x-3 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all font-label-md text-sm text-left cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-lg">manage_accounts</span>
+              <span>จัดการผู้ใช้งาน (Users)</span>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
               onClick={() => setActiveTab('activities')}
               className={`w-full flex items-center space-x-3 p-3 rounded-xl font-label-md text-sm transition-all text-left cursor-pointer ${
                 activeTab === 'activities'

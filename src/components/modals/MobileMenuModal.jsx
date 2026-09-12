@@ -246,6 +246,14 @@ export default function MobileMenuModal({
                     <span className="material-symbols-outlined text-sm text-secondary">add_circle</span>
                     <span className="font-medium">เพิ่มข้อมูลพรรณไม้ (Add Plant)</span>
                   </button>
+                  <button
+                    type="button"
+                    onClick={() => handleNav('userManagement')}
+                    className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-on-surface-variant hover:text-primary hover:bg-secondary-container/40 transition-colors text-left cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-sm text-secondary">manage_accounts</span>
+                    <span className="font-medium">จัดการผู้ใช้งาน (Users)</span>
+                  </button>
                 </div>
               )}
             </div>

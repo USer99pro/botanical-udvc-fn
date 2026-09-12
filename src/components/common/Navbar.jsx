@@ -295,6 +295,13 @@ export default function Navbar({
           icon: 'add_circle',
           pageId: 'addPlant',
         },
+        {
+          id: 'userManagement',
+          title: 'จัดการผู้ใช้งาน (User Management)',
+          description: 'เพิ่ม แก้ไข ระงับ หรือลบสมาชิกในระบบ',
+          icon: 'manage_accounts',
+          pageId: 'userManagement',
+        },
       ],
     });
   }

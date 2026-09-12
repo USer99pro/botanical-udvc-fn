@@ -6,6 +6,7 @@ import Navbar from './components/common/Navbar';
 // Existing Pages (Preserved 100%)
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
+import UserManagementPage from './pages/UserManagementPage';
 import PlantDetailPage from './pages/PlantDetailPage';
 import PlantCategoriesPage from './pages/PlantCategoriesPage';
 import AddPlantPage from './pages/AddPlantPage';
@@ -68,6 +69,7 @@ const HASH_TO_PAGE = {
   'categories': 'categories',
   'about': 'about',
   'dashboard': 'dashboard',
+  'user-management': 'userManagement',
   'addPlant': 'addPlant',
   'register': 'register',
   'plantDetail': 'plantDetail',
@@ -118,7 +120,7 @@ export default function App() {
     }
   });
 
-  const isAdmin = !!currentUser;
+  const isAdmin = String(currentUser?.role || '').toLowerCase() === 'admin';
 
   const handleLoginSuccess = (user) => {
     setCurrentUser(user);
@@ -132,7 +134,7 @@ export default function App() {
       // ignore
     }
     setCurrentUser(null);
-    if (currentPage === 'dashboard' || currentPage === 'addPlant') {
+    if (currentPage === 'dashboard' || currentPage === 'addPlant' || currentPage === 'userManagement') {
       navigateTo('home');
     }
   };
@@ -249,6 +251,16 @@ export default function App() {
           <DashboardPage 
             onNavigate={navigateTo} 
             onSelectPlant={handleSelectPlant}
+          />
+        );
+      case 'userManagement':
+        if (!isAdmin) {
+          return renderAdminGuard('หน้าจัดการผู้ใช้งาน (User Management)');
+        }
+        return (
+          <UserManagementPage
+            onNavigate={navigateTo}
+            currentUser={currentUser}
           />
         );
       case 'register':

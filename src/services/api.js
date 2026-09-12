@@ -228,6 +228,62 @@ export async function deleteItem(path, id) {
   return { data: unwrapItem(apiRes.data) || { success: true }, error: null, status: apiRes.status };
 }
 
+function mapUser(item) {
+  if (!item) return null;
+  return {
+    ...item,
+    id: item._id || item.id,
+    role: item.role || 'Viewer',
+    status: item.status || 'active',
+  };
+}
+
+export async function getUsers({ page = 1, limit = 100, search = '', role = '', status = '' } = {}) {
+  const result = await getList('/api/users', { page, limit, q: search, role, status });
+  if (result.error) return result;
+  return {
+    data: {
+      users: result.data.items.map(mapUser),
+      total: result.data.pagination.total,
+      page: result.data.pagination.page,
+      limit: result.data.pagination.limit,
+    },
+    error: null,
+    status: result.status,
+  };
+}
+
+export async function createUser(payload) {
+  const result = await createItem('/api/users', {
+    name: payload.name,
+    email: payload.email,
+    password: payload.password,
+    role: payload.role,
+    status: payload.status,
+    ...(payload.avatar ? { avatar: payload.avatar } : {}),
+  });
+  if (result.error) return result;
+  return { data: mapUser(result.data), error: null, status: result.status };
+}
+
+export async function updateUser(id, payload) {
+  const body = {
+    name: payload.name,
+    email: payload.email,
+    role: payload.role,
+    status: payload.status,
+    ...(payload.password ? { password: payload.password } : {}),
+    ...(payload.avatar ? { avatar: payload.avatar } : {}),
+  };
+  const result = await updateItem('/api/users', id, body);
+  if (result.error) return result;
+  return { data: mapUser(result.data), error: null, status: result.status };
+}
+
+export async function deleteUser(id) {
+  return deleteItem('/api/users', id);
+}
+
 export async function getPlants({ page = 1, limit = 12, search = '', category = '' } = {}) {
   const params = { page, limit, q: search };
   if (category && category !== 'all') {
