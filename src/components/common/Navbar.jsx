@@ -315,13 +315,13 @@ export default function Navbar({
     transition-all duration-300 ${className}`}
       id="full-navbar"
     >
-      <div className="w-full px-3 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3">
+      <div className="w-full min-w-0 px-2 sm:px-4 lg:px-6 py-2 flex items-center justify-between gap-1.5">
         {/* 1. Far Left: Logo & College Title (โลโก้อยู่ซ้ายมือสุดเสมอ) */}
-        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
             onClick={() => handleNav('home')}
-            className="text-left cursor-pointer group flex items-center gap-2.5 sm:gap-3"
+            className="text-left cursor-pointer group flex items-center gap-2"
             title="งานสวนพฤกษศาสตร์โรงเรียน วิทยาลัยอาชีวศึกษาอุดรธานี"
           >
             <div className="w-10 h-10 rounded-2xl bg-secondary/15 flex items-center justify-center text-secondary group-hover:scale-105 group-hover:bg-secondary/25 transition-all shadow-2xs shrink-0">
@@ -329,11 +329,11 @@ export default function Navbar({
                 local_florist
               </span>
             </div>
-            <div className="flex flex-col min-w-0">
-              <span className="font-bold text-xs sm:text-sm md:text-base text-primary leading-tight tracking-tight whitespace-nowrap">
+            <div className="flex min-w-0 max-w-[170px] 2xl:max-w-[210px] flex-col">
+              <span className="font-bold text-xs sm:text-sm md:text-base text-primary leading-tight tracking-tight whitespace-nowrap truncate">
                 สวนพฤกษศาสตร์ วอศ.อุดรธานี
               </span>
-              <span className="text-[9px] sm:text-[10px] md:text-[11px] font-medium text-secondary tracking-wide uppercase truncate max-w-[180px] sm:max-w-xs md:max-w-none">
+              <span className="text-[9px] sm:text-[10px] md:text-[11px] font-medium text-secondary tracking-wide uppercase truncate">
                 School Botanical Garden UDVC
               </span>
             </div>
@@ -341,7 +341,7 @@ export default function Navbar({
         </div>
 
         {/* 2. Middle: Desktop Navigation Menus (Visible on XL+ screens) */}
-        <nav className="hidden xl:flex flex-1 min-w-0 items-center justify-center gap-0.5 2xl:gap-1 font-body-md text-xs 2xl:text-[13px] overflow-visible flex-wrap px-1">
+        <nav className="hidden xl:flex flex-1 min-w-0 items-center justify-center gap-0 font-body-md text-xs 2xl:text-[13px] overflow-visible flex-nowrap px-0">
           {navSections.map((item) => {
             if (item.type === 'link') {
               const isActive = currentPage === item.pageId;
@@ -350,7 +350,7 @@ export default function Navbar({
                   key={item.id}
                   type="button"
                   onClick={() => handleNav(item.pageId)}
-                  className={`px-2.5 py-1.5 2xl:px-3 2xl:py-2 rounded-xl font-medium transition-all duration-150 cursor-pointer flex items-center gap-1 whitespace-nowrap ${isActive
+                  className={`shrink-0 px-1.5 py-1.5 2xl:px-2 2xl:py-2 rounded-xl font-medium transition-all duration-150 cursor-pointer flex items-center gap-0.5 whitespace-nowrap ${isActive
                       ? 'text-primary font-bold bg-secondary-container/50'
                       : 'text-on-surface-variant hover:text-primary hover:bg-surface-container'
                     }`}
@@ -372,7 +372,7 @@ export default function Navbar({
                   aria-expanded={isOpen}
                   aria-haspopup="true"
                   onClick={() => toggleDropdown(item.id)}
-                  className={`px-2.5 py-1.5 2xl:px-3 2xl:py-2 rounded-xl font-medium transition-all duration-150 cursor-pointer flex items-center gap-1 whitespace-nowrap ${isOpen || hasActiveChild
+                  className={`px-1.5 py-1.5 2xl:px-2 2xl:py-2 rounded-xl font-medium transition-all duration-150 cursor-pointer flex items-center gap-0.5 whitespace-nowrap ${isOpen || hasActiveChild
                       ? 'text-primary font-bold bg-secondary-container/50'
                       : 'text-on-surface-variant hover:text-primary hover:bg-surface-container'
                     }`}
@@ -448,13 +448,13 @@ export default function Navbar({
         </nav>
 
         {/* 3. Far Right: Actions (ค้นหา + เข้าสู่ระบบ/สมัครสมาชิก + Hamburger บนจอเล็ก) */}
-        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-auto xl:ml-0">
+        <div className="flex items-center gap-1 shrink-0 ml-auto xl:ml-1">
           {/* Search Button */}
           {onOpenSearch && (
             <button
               type="button"
               onClick={onOpenSearch}
-              className="p-2 rounded-full hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center gap-1"
+              className="p-1.5 rounded-full hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center gap-1"
               title="ค้นหาพรรณไม้ด่วน (Ctrl+K)"
               aria-label="ค้นหาพรรณไม้"
             >
@@ -465,11 +465,11 @@ export default function Navbar({
 
           {/* Auth Section: Login/Register entry point or Logged In State */}
           {!isAdmin ? (
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div className="flex items-center gap-1 shrink-0">
               <button
                 type="button"
                 onClick={onOpenLogin}
-                className="inline-flex items-center gap-1 sm:gap-1.5 bg-primary text-on-primary hover:bg-secondary text-xs font-semibold px-3 py-1.5 sm:px-4 sm:py-1.5 rounded-full transition-all shadow-2xs cursor-pointer whitespace-nowrap"
+                className="inline-flex items-center gap-1 bg-primary text-on-primary hover:bg-secondary text-xs font-semibold px-2.5 py-1.5 2xl:px-3 rounded-full transition-all shadow-2xs cursor-pointer whitespace-nowrap"
                 title="เข้าสู่ระบบหรือสมัครสมาชิก"
               >
                 <span className="material-symbols-outlined text-base">person</span>
@@ -479,9 +479,9 @@ export default function Navbar({
             </div>
           ) : (
             /* เมื่อเข้าสู่ระบบแล้ว: แสดงสถานะและปุ่มออกจากระบบ */
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div className="flex items-center gap-1 shrink-0">
               <div
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-secondary/15 text-secondary text-xs font-bold"
+                className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-secondary/15 text-secondary text-xs font-bold"
                 title={`${currentUser?.name || 'ผู้ใช้งาน'} (${currentUser?.roleLabel || (currentUser?.role === 'admin' ? 'ผู้ดูแลระบบ' : 'เจ้าหน้าที่')})`}
               >
                 <span className="material-symbols-outlined text-sm">
@@ -494,7 +494,7 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={onLogout}
-                className="p-1.5 sm:px-3 sm:py-1.5 rounded-full border border-outline-variant/50 hover:bg-error-container/20 hover:text-error text-xs font-semibold text-on-surface-variant transition-colors cursor-pointer flex items-center gap-1"
+                className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-full border border-outline-variant/50 hover:bg-error-container/20 hover:text-error text-xs font-semibold text-on-surface-variant transition-colors cursor-pointer flex items-center gap-1"
                 title="ออกจากระบบ"
               >
                 <span className="material-symbols-outlined text-sm">logout</span>
