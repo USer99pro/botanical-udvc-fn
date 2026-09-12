@@ -1,7 +1,7 @@
 import React from 'react';
 import { usePlants, useDailyFact, useSiteSettings } from '../services/hooks';
 
-export default function HomePage({ onNavigate, onSelectPlant, onOpenSearch }) {
+export default function HomePage({ onNavigate, onSelectPlant, onOpenSearch: _onOpenSearch }) {
   const { data: plantsData, loading: plantsLoading } = usePlants({ limit: 4 });
   const { data: dailyFact } = useDailyFact();
   const { data: siteSettings } = useSiteSettings();

@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { usePlants } from '../services/hooks';
-import Navbar from '../components/common/Navbar';
 import {
   DataGrid,
   getPlantColumns,
@@ -19,7 +18,7 @@ function PlantCardSkeleton() {
   );
 }
 
-export default function PlantExplorerPage({ onNavigate, onSelectPlant, onOpenSearch }) {
+export default function PlantExplorerPage({ onNavigate, onSelectPlant, onOpenSearch: _onOpenSearch }) {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'table'
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
@@ -34,8 +33,6 @@ export default function PlantExplorerPage({ onNavigate, onSelectPlant, onOpenSea
 
   // Fetch all plants for comprehensive DataGrid & cards
   const { data: allPlantsData, loading: allLoading } = usePlants({ limit: 100 });
-  const allPlants = allPlantsData?.plants || [];
-
   // Filtered plants for card view based on debounced search and active filter
   const { data: plantsData, loading } = usePlants({
     search: debouncedSearch,
@@ -43,22 +40,18 @@ export default function PlantExplorerPage({ onNavigate, onSelectPlant, onOpenSea
     limit: 18,
   });
 
-  const handleNav = (page) => {
-    if (onNavigate) onNavigate(page);
-  };
-
-  const handlePlantClick = (plantId) => {
+  const handlePlantClick = useCallback((plantId) => {
     if (onSelectPlant) onSelectPlant(plantId);
-    else handleNav('plantDetail');
-  };
+    else if (onNavigate) onNavigate('plantDetail');
+  }, [onNavigate, onSelectPlant]);
 
-  const handleCopyCode = (code) => {
+  const handleCopyCode = useCallback((code) => {
     if (navigator?.clipboard) {
       navigator.clipboard.writeText(code);
       setToastMessage(`คัดลอกรหัส "${code}" สำเร็จ!`);
       setTimeout(() => setToastMessage(''), 2500);
     }
-  };
+  }, []);
 
   // TanStack Table V9: Stable columns definition
   const columns = useMemo(() => {
@@ -66,7 +59,7 @@ export default function PlantExplorerPage({ onNavigate, onSelectPlant, onOpenSea
       onSelectPlant: handlePlantClick,
       onCopyCode: handleCopyCode,
     });
-  }, []);
+  }, [handleCopyCode, handlePlantClick]);
 
   // TanStack Table V9: External atoms with URL synchronization
   const { atoms } = useUrlTableSync({
@@ -76,9 +69,10 @@ export default function PlantExplorerPage({ onNavigate, onSelectPlant, onOpenSea
 
   // Filter data for the table if category filter is active
   const tableData = useMemo(() => {
+    const allPlants = allPlantsData?.plants || [];
     if (!activeFilter || activeFilter === 'all') return allPlants;
     return allPlants.filter((p) => p.category === activeFilter);
-  }, [allPlants, activeFilter]);
+  }, [allPlantsData, activeFilter]);
 
   // TanStack Table V9: Headless data grid hook
   const table = useHeadlessDataGrid({

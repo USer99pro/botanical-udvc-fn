@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useCategories, usePlants } from '../services/hooks';
-import Navbar from '../components/common/Navbar';
 
-export default function PlantCategoriesPage({ onNavigate, onSelectPlant, onOpenSearch }) {
+export default function PlantCategoriesPage({ onNavigate, onSelectPlant, onOpenSearch: _onOpenSearch }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 

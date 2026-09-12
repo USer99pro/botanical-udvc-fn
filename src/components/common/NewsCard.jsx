@@ -1,5 +1,5 @@
 import React from 'react';
-import VideoPlayer, { getAspectRatioClass } from './VideoPlayer';
+import VideoPlayer from './VideoPlayer';
 
 export default function NewsCard({
   news,
@@ -10,7 +10,6 @@ export default function NewsCard({
   if (!news) return null;
 
   const {
-    id,
     title,
     excerpt,
     category = 'ข่าวสาร',
@@ -28,7 +27,7 @@ export default function NewsCard({
   const isVertical = aspect_ratio === '9:16';
   const isVideo = media_type === 'youtube' || media_type === 'tiktok' || media_type === 'video';
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     if (onClick) onClick(news);
   };
 

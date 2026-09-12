@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { usePlant, usePlants } from '../services/hooks';
 
-export default function PlantDetailPage({ plantId, onSelectPlant, onNavigate, onOpenSearch }) {
+export default function PlantDetailPage({ plantId, onSelectPlant, onNavigate, onOpenSearch: _onOpenSearch }) {
   const [activeTab, setActiveTab] = useState('overview');
   const [isSaved, setIsSaved] = useState(false);
 

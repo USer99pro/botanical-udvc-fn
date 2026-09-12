@@ -312,13 +312,15 @@ export async function getPlantById(idOrSlug) {
 
 export async function createPlant(payload) {
   const plantCode = payload.plant_code || payload.plantCode || `7-41000-${Date.now().toString().slice(-6)}`;
+  const scientificName = payload.scientificName || payload.scientific_name;
+  const slugSource = scientificName && scientificName !== 'Botanical sp.' ? scientificName : plantCode;
   const body = {
     plant_code: plantCode,
-    slug: payload.slug || slugFrom(payload.scientificName || payload.scientific_name, slugFrom(plantCode, `plant-${Date.now()}`)),
+    slug: payload.slug || slugFrom(slugSource, `plant-${Date.now()}`),
     thai_name: payload.thai_name || payload.nameTh || payload.plantNameTh,
     local_name: payload.local_name || payload.nameLocal || payload.nameTh,
     common_name: payload.common_name || payload.commonName,
-    scientific_name: payload.scientific_name || payload.scientificName,
+    scientific_name: payload.scientific_name || scientificName,
     family: payload.family,
     genus: payload.genus,
     species: payload.species,
@@ -326,10 +328,16 @@ export async function createPlant(payload) {
     botanical_characteristics: Array.isArray(payload.botanicalFacts)
       ? payload.botanicalFacts.join('\n')
       : payload.botanical_characteristics || payload.facts,
+    origin: payload.origin,
+    distribution: payload.distribution,
     benefits: payload.benefits || payload.uses,
+    medicinal_properties: payload.medicinal_properties || payload.medicinalProperties,
     location: payload.location?.description
       ? payload.location
       : { description: payload.zone || payload.location || '' },
+    category_id: payload.category_id || payload.categoryId,
+    source_url: payload.source_url || payload.sourceUrl,
+    survey_date: payload.survey_date || payload.surveyDate,
     images: payload.imageUrl || payload.cover_image
       ? [{ file_url: payload.imageUrl || payload.cover_image, type: 'cover', sort_order: 0 }]
       : payload.images || [],

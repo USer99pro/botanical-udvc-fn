@@ -58,7 +58,10 @@ export default function UserManagementPage({ onNavigate, currentUser }) {
   }, [roleFilter, search, statusFilter]);
 
   useEffect(() => {
-    loadUsers();
+    const timer = window.setTimeout(() => {
+      loadUsers();
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [loadUsers]);
 
   const openCreateModal = () => {

@@ -5,7 +5,7 @@ import VideoPlayer from '../components/common/VideoPlayer';
 import NewsDetailModal from '../components/modals/NewsDetailModal';
 import AddNewsModal from '../components/modals/AddNewsModal';
 
-export default function NewsPage({ onNavigate, isAdmin = false }) {
+export default function NewsPage({ onNavigate: _onNavigate, isAdmin: _isAdmin = false }) {
   // State for filters
   const [selectedRatio, setSelectedRatio] = useState('all'); // 'all', '16:9', '9:16', '4:3'
   const [selectedMediaType, setSelectedMediaType] = useState('all'); // 'all', 'youtube', 'tiktok', 'banner'
@@ -26,7 +26,7 @@ export default function NewsPage({ onNavigate, isAdmin = false }) {
     limit: 30,
   });
 
-  const newsList = newsData?.news || [];
+  const newsList = useMemo(() => newsData?.news || [], [newsData]);
 
   // Identify featured banner items for the top hero showcase
   const featuredNews = useMemo(() => {

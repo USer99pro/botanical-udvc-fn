@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Breadcrumb from '../components/shared/Breadcrumb';
 import PageHeader from '../components/shared/PageHeader';
-import SectionHeader from '../components/shared/SectionHeader';
 import SearchFilter from '../components/shared/SearchFilter';
 import ContentCard from '../components/shared/ContentCard';
 import Footer from '../components/shared/Footer';

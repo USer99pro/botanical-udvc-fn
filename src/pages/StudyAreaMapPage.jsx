@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import Breadcrumb from '../components/shared/Breadcrumb';
 import PageHeader from '../components/shared/PageHeader';
-import SectionHeader from '../components/shared/SectionHeader';
 import Footer from '../components/shared/Footer';
 
-export default function StudyAreaMapPage({ onNavigate, onSelectPlant }) {
+export default function StudyAreaMapPage({ onNavigate, onSelectPlant: _onSelectPlant }) {
   const [selectedArea, setSelectedArea] = useState(0);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);

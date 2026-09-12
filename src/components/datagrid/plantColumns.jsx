@@ -22,7 +22,7 @@ export function getPlantColumns({ onSelectPlant, onCopyCode } = {}) {
         <div className="flex items-center justify-center">
           <Subscribe
             source={table.store}
-            selector={(state) => {
+            selector={() => {
               const isAll = table.getIsAllRowsSelected();
               const isSome = table.getIsSomeRowsSelected();
               return { isAll, isSome };

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useDashboardStats, usePlants, useRecentActivity } from '../services/hooks';
 import { DataGrid, getPlantColumns, useHeadlessDataGrid } from '../components/datagrid';
 
@@ -13,10 +13,10 @@ export default function DashboardPage({ onNavigate, onSelectPlant }) {
     if (onNavigate) onNavigate(page);
   };
 
-  const handlePlantClick = (plantId) => {
+  const handlePlantClick = useCallback((plantId) => {
     if (onSelectPlant) onSelectPlant(plantId);
-    else handleNav('plantDetail');
-  };
+    else if (onNavigate) onNavigate('plantDetail');
+  }, [onNavigate, onSelectPlant]);
 
   const plants = plantsData?.plants || [];
   const dataSummary = [
@@ -30,7 +30,7 @@ export default function DashboardPage({ onNavigate, onSelectPlant }) {
 
   const columns = useMemo(() => {
     return getPlantColumns({ onSelectPlant: handlePlantClick });
-  }, []);
+  }, [handlePlantClick]);
 
   const table = useHeadlessDataGrid({
     data: plants,

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { flexRender, Subscribe } from '@tanstack/react-table';
 
 /**
@@ -69,12 +69,9 @@ export default function DataGrid({
 
   // Helper for exporting rows
   const handleExport = (exportSelectedOnly = false) => {
-    let rowsToExport = [];
-    if (exportSelectedOnly) {
-      rowsToExport = table.getSelectedRowModel().rows.map((r) => r.original);
-    } else {
-      rowsToExport = table.getFilteredRowModel().rows.map((r) => r.original);
-    }
+    const rowsToExport = exportSelectedOnly
+      ? table.getSelectedRowModel().rows.map((r) => r.original)
+      : table.getFilteredRowModel().rows.map((r) => r.original);
 
     if (!rowsToExport.length) return;
 

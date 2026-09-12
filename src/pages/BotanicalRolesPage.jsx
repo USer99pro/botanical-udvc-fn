@@ -1,7 +1,6 @@
 import React from 'react';
 import Breadcrumb from '../components/shared/Breadcrumb';
 import PageHeader from '../components/shared/PageHeader';
-import SectionHeader from '../components/shared/SectionHeader';
 import Footer from '../components/shared/Footer';
 
 export default function BotanicalRolesPage({ onNavigate }) {

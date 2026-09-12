@@ -9,7 +9,7 @@
  * Transient slices (rowSelection, columnSizing, columnVisibility)
  * remain in internal table store and are NOT pushed to the URL.
  */
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { createAtom } from '@tanstack/store';
 
 /**
@@ -50,18 +50,16 @@ function readUrlState(defaultPageSize = 10) {
  */
 export function useUrlTableSync({ defaultPageSize = 10, enabled = true } = {}) {
   // Stably initialize atoms once from current URL
-  const atomsRef = useRef(null);
-
-  if (!atomsRef.current) {
+  const [atoms] = useState(() => {
     const initialState = readUrlState(defaultPageSize);
-    atomsRef.current = {
+    return {
       pagination: createAtom(initialState.pagination),
       sorting: createAtom(initialState.sorting),
       globalFilter: createAtom(initialState.globalFilter),
     };
-  }
+  });
 
-  const { pagination, sorting, globalFilter } = atomsRef.current;
+  const { pagination, sorting, globalFilter } = atoms;
 
   // Sync atom state to URL query parameters
   useEffect(() => {
@@ -142,6 +140,6 @@ export function useUrlTableSync({ defaultPageSize = 10, enabled = true } = {}) {
   }, [enabled, defaultPageSize, pagination, sorting, globalFilter]);
 
   return {
-    atoms: atomsRef.current,
+    atoms,
   };
 }

@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { createPlant } from '../services/api';
-import Navbar from '../components/common/Navbar';
+import {
+  mapImportedPlantRow,
+  parsePlantFile,
+  PLANT_IMPORT_HEADERS,
+  validateImportedPlantRow,
+} from '../utils/plantImport';
 
 export default function AddPlantPage({ onNavigate, onSelectPlant }) {
   const [formData, setFormData] = useState({
@@ -21,6 +26,11 @@ export default function AddPlantPage({ onNavigate, onSelectPlant }) {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [importRows, setImportRows] = useState([]);
+  const [importFileName, setImportFileName] = useState('');
+  const [importErrors, setImportErrors] = useState([]);
+  const [importResult, setImportResult] = useState(null);
+  const [isImporting, setIsImporting] = useState(false);
 
   const handleNav = (page) => {
     if (onNavigate) onNavigate(page);
@@ -50,6 +60,10 @@ export default function AddPlantPage({ onNavigate, onSelectPlant }) {
 
     const res = await createPlant(payload);
     setIsSubmitting(false);
+    if (res.error) {
+      setImportResult({ type: 'error', message: res.error });
+      return;
+    }
     setIsSuccess(true);
 
     setTimeout(() => {
@@ -60,6 +74,76 @@ export default function AddPlantPage({ onNavigate, onSelectPlant }) {
         handleNav('dashboard');
       }
     }, 1500);
+  };
+
+  const handleImportFile = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+
+    setImportFileName(file.name);
+    setImportRows([]);
+    setImportErrors([]);
+    setImportResult(null);
+
+    try {
+      const rows = await parsePlantFile(file);
+      const errors = rows
+        .map((row, index) => validateImportedPlantRow(row, index))
+        .filter(Boolean);
+      setImportRows(rows);
+      setImportErrors(errors);
+      if (!rows.length) {
+        setImportResult({ type: 'error', message: 'ไม่พบข้อมูลพรรณไม้ในไฟล์' });
+      } else if (errors.length) {
+        setImportResult({ type: 'error', message: `พบข้อมูลไม่ครบ ${errors.length} แถว กรุณาแก้ไขไฟล์ก่อนนำเข้า` });
+      }
+    } catch (error) {
+      setImportResult({ type: 'error', message: error.message || 'อ่านไฟล์ไม่สำเร็จ' });
+    }
+  };
+
+  const handleImportSubmit = async () => {
+    const validRows = importRows.filter((row, index) => !validateImportedPlantRow(row, index));
+    if (!validRows.length || importErrors.length) {
+      setImportResult({ type: 'error', message: 'กรุณาแก้ไขแถวที่มีข้อมูลไม่ครบก่อนนำเข้า' });
+      return;
+    }
+
+    setIsImporting(true);
+    setImportResult(null);
+    const errors = [];
+    let successCount = 0;
+
+    for (let index = 0; index < validRows.length; index += 1) {
+      const result = await createPlant(mapImportedPlantRow(validRows[index], index));
+      if (result.error) {
+        errors.push(`แถวที่ ${index + 2}: ${result.error}`);
+      } else {
+        successCount += 1;
+      }
+    }
+
+    setIsImporting(false);
+    setImportErrors(errors);
+    setImportResult({
+      type: errors.length ? 'error' : 'success',
+      message: errors.length
+        ? `นำเข้าสำเร็จ ${successCount} จาก ${validRows.length} แถว และมีข้อผิดพลาด ${errors.length} แถว`
+        : `นำเข้าข้อมูลพรรณไม้สำเร็จ ${successCount} แถว`,
+    });
+    if (!errors.length) setImportRows([]);
+  };
+
+  const downloadTemplate = () => {
+    const csv = `${PLANT_IMPORT_HEADERS.join(',')}\n7-41000-001-001,ราชพฤกษ์,Cassia fistula L.,คูน,Golden shower tree,Fabaceae,Cassia,fistula,ไม้ยืนต้น,ลักษณะตัวอย่าง,ใช้เป็นยาระบาย,แปลง A-01,,draft\n`;
+    const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'plant-import-template.csv';
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -88,6 +172,96 @@ export default function AddPlantPage({ onNavigate, onSelectPlant }) {
             </div>
           </div>
         )}
+
+        <section className="mb-8 rounded-2xl border border-secondary/30 bg-secondary-container/30 p-6 shadow-sm">
+          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h2 className="flex items-center gap-2 font-headline-sm text-lg font-bold text-primary">
+                <span className="material-symbols-outlined text-secondary">upload_file</span>
+                นำเข้าข้อมูลจาก CSV / Excel
+              </h2>
+              <p className="mt-1 text-sm text-on-surface-variant">
+                เลือกไฟล์ .csv หรือ Excel รุ่นใหม่ .xlsx ได้ ระบบจะแสดงตัวอย่างและตรวจข้อมูลก่อนบันทึก
+                (ไฟล์ .xls รุ่นเก่าให้บันทึกเป็น .xlsx ก่อน)
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={downloadTemplate}
+              className="shrink-0 rounded-full border border-outline-variant/50 bg-surface-container-lowest px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-surface-container"
+            >
+              ดาวน์โหลดไฟล์ตัวอย่าง
+            </button>
+          </div>
+
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary shadow-sm transition-colors hover:bg-secondary">
+              <span className="material-symbols-outlined text-lg">folder_open</span>
+              เลือกไฟล์ข้อมูล
+              <input
+                type="file"
+                accept=".csv,.xlsx,.xls"
+                onChange={handleImportFile}
+                className="sr-only"
+              />
+            </label>
+            {importFileName && <span className="text-sm text-on-surface-variant">{importFileName}</span>}
+          </div>
+
+          {importResult && (
+            <div className={`mt-4 rounded-xl p-3 text-sm ${importResult.type === 'success' ? 'bg-secondary-container text-on-secondary-container' : 'bg-error-container text-on-error-container'}`}>
+              {importResult.message}
+            </div>
+          )}
+
+          {importErrors.length > 0 && (
+            <ul className="mt-3 max-h-32 space-y-1 overflow-auto rounded-xl bg-error-container/60 p-3 text-xs text-on-error-container">
+              {importErrors.map((error) => <li key={error}>{error}</li>)}
+            </ul>
+          )}
+
+          {importRows.length > 0 && (
+            <div className="mt-5 overflow-hidden rounded-xl border border-outline-variant/30 bg-surface-container-lowest">
+              <div className="flex items-center justify-between gap-3 border-b border-outline-variant/20 px-4 py-3">
+                <p className="text-sm font-semibold text-primary">
+                  ตัวอย่างข้อมูล {importRows.length} แถว (แสดง 5 แถวแรก)
+                </p>
+                <button
+                  type="button"
+                  onClick={handleImportSubmit}
+                  disabled={isImporting || importErrors.length > 0}
+                  className="rounded-full bg-secondary px-4 py-2 text-xs font-semibold text-on-secondary transition-colors hover:bg-primary disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {isImporting ? 'กำลังนำเข้า...' : 'นำเข้าข้อมูลทั้งหมด'}
+                </button>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="min-w-full text-left text-xs">
+                  <thead className="bg-surface-container text-on-surface-variant">
+                    <tr>
+                      <th className="px-4 py-2 font-semibold">แถว</th>
+                      <th className="px-4 py-2 font-semibold">รหัสพรรณไม้</th>
+                      <th className="px-4 py-2 font-semibold">ชื่อพรรณไม้</th>
+                      <th className="px-4 py-2 font-semibold">ชื่อวิทยาศาสตร์</th>
+                      <th className="px-4 py-2 font-semibold">วงศ์</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {importRows.slice(0, 5).map((row, index) => (
+                      <tr key={`${row.plant_code || 'row'}-${index}`} className="border-t border-outline-variant/20">
+                        <td className="px-4 py-2">{index + 2}</td>
+                        <td className="px-4 py-2">{row.plant_code || '-'}</td>
+                        <td className="px-4 py-2">{row.thai_name || '-'}</td>
+                        <td className="px-4 py-2 italic">{row.scientific_name || '-'}</td>
+                        <td className="px-4 py-2">{row.family || '-'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </section>
 
         {/* Form Layout */}
         <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">

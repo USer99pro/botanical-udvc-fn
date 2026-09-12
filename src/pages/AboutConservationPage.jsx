@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../components/common/Navbar';
 
 export default function AboutConservationPage({ onNavigate }) {
   const handleNav = (page) => {

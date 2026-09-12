@@ -5,7 +5,6 @@ export default function NewsDetailModal({
   news,
   isOpen,
   onClose,
-  onOpenAddModal = null,
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -22,7 +21,6 @@ export default function NewsDetailModal({
   if (!isOpen || !news) return null;
 
   const {
-    id,
     title,
     excerpt,
     content,
@@ -39,8 +37,6 @@ export default function NewsDetailModal({
   } = news;
 
   const displayImage = cover_image || banner_image;
-  const isVideo = media_type === 'youtube' || media_type === 'tiktok' || media_type === 'video';
-
   const handleCopyLink = () => {
     try {
       const url = window.location.href;
