@@ -17,6 +17,7 @@ import {
   globalFilteringFeature,
   columnVisibilityFeature,
   columnSizingFeature,
+  columnResizingFeature,
   filterFns,
   sortFns,
 } from '@tanstack/react-table';
@@ -82,6 +83,7 @@ export const gridFeatures = tableFeatures({
   // Column Visibility & Sizing Features
   columnVisibilityFeature,
   columnSizingFeature,
+  columnResizingFeature,
 
   // Custom Registries
   filterFns: customFilterFns,

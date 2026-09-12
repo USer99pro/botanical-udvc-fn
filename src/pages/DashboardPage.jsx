@@ -19,6 +19,14 @@ export default function DashboardPage({ onNavigate, onSelectPlant }) {
   };
 
   const plants = plantsData?.plants || [];
+  const dataSummary = [
+    { label: 'พรรณไม้', value: stats?.totalPlants ?? 0, icon: 'forest', color: 'bg-secondary' },
+    { label: 'ข่าวสาร', value: stats?.totalNews ?? 0, icon: 'newspaper', color: 'bg-primary' },
+    { label: 'เอกสารการเรียนรู้', value: stats?.researchDocuments ?? 0, icon: 'description', color: 'bg-tertiary' },
+    { label: 'กิจกรรม', value: stats?.totalActivities ?? 0, icon: 'event', color: 'bg-secondary/70' },
+    { label: 'ผู้ใช้งานระบบ', value: stats?.totalUsers ?? 0, icon: 'group', color: 'bg-primary/70' },
+  ];
+  const summaryMax = Math.max(...dataSummary.map((item) => item.value), 1);
 
   const columns = useMemo(() => {
     return getPlantColumns({ onSelectPlant: handlePlantClick });
@@ -215,6 +223,39 @@ export default function DashboardPage({ onNavigate, onSelectPlant }) {
                 <span className="material-symbols-outlined text-sm mr-1">check_circle</span>
                 <span>บันทึกครบ 5 องค์ประกอบ อพ.สธ.</span>
               </div>
+            </div>
+          </section>
+
+          {/* Data Summary Chart */}
+          <section className="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/20">
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between mb-6">
+              <div>
+                <h3 className="font-headline-sm text-lg font-bold text-primary flex items-center gap-2">
+                  <span className="material-symbols-outlined text-secondary">bar_chart</span>
+                  <span>สรุปข้อมูลในระบบ</span>
+                </h3>
+                <p className="text-xs text-on-surface-variant mt-1">
+                  จำนวนรายการปัจจุบันจากฐานข้อมูล แยกตามประเภทข้อมูล
+                </p>
+              </div>
+              <span className="text-xs text-on-surface-variant">อัปเดตจากข้อมูลล่าสุด</span>
+            </div>
+            <div className="space-y-4">
+              {dataSummary.map((item) => (
+                <div key={item.label} className="grid grid-cols-[minmax(130px,180px)_1fr_64px] items-center gap-3">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-on-surface">
+                    <span className="material-symbols-outlined text-base text-secondary">{item.icon}</span>
+                    <span>{item.label}</span>
+                  </div>
+                  <div className="h-3 overflow-hidden rounded-full bg-surface-container">
+                    <div
+                      className={`h-full rounded-full ${item.color} transition-all duration-500`}
+                      style={{ width: `${Math.max((item.value / summaryMax) * 100, item.value ? 3 : 0)}%` }}
+                    />
+                  </div>
+                  <span className="text-right text-sm font-bold text-primary">{item.value.toLocaleString()}</span>
+                </div>
+              ))}
             </div>
           </section>
 

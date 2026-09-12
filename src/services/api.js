@@ -417,13 +417,14 @@ export async function globalSearch(query, { limit = 10 } = {}) {
 }
 
 export async function getDashboardStats() {
-  const [plants, news, docs, activities] = await Promise.all([
+  const [plants, news, docs, activities, users] = await Promise.all([
     getList('/api/plants', { page: 1, limit: 1 }),
     getList('/api/news', { page: 1, limit: 1 }),
     getList('/api/documents', { page: 1, limit: 1 }),
     getList('/api/activities', { page: 1, limit: 1 }),
+    getList('/api/users', { page: 1, limit: 1 }),
   ]);
-  const error = plants.error || news.error || docs.error || activities.error;
+  const error = plants.error || news.error || docs.error || activities.error || users.error;
   if (error && !plants.data) return { data: null, error, status: plants.status || 500 };
   return {
     data: {
@@ -431,6 +432,7 @@ export async function getDashboardStats() {
       totalNews: news.data?.pagination.total ?? 0,
       researchDocuments: docs.data?.pagination.total ?? 0,
       totalActivities: activities.data?.pagination.total ?? 0,
+      totalUsers: users.data?.pagination.total ?? 0,
       totalVisitors: news.data?.pagination.total ?? 0,
       newPlantsThisTerm: 0,
       visitorGrowthPercent: 0,
