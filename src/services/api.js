@@ -490,6 +490,18 @@ export async function getDocuments({ category = '', page = 1, limit = 50 } = {})
   return { data: result.data.items, error: null, status: 200 };
 }
 
+export async function getSiteSettings({ group = '', limit = 100 } = {}) {
+  const result = await getList('/api/site-settings', { page: 1, limit, group });
+  if (result.error) return result;
+
+  const settings = result.data.items.reduce((values, item) => {
+    values[item.key] = item.value;
+    return values;
+  }, {});
+
+  return { data: settings, error: null, status: result.status };
+}
+
 export async function getPersonnel({ page = 1, limit = 100 } = {}) {
   const result = await getList('/api/personnel', { page, limit });
   if (result.error) return result;

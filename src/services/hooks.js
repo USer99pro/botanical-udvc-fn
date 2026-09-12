@@ -19,6 +19,7 @@ import {
   getPersonnel,
   getNews,
   getNewsById,
+  getSiteSettings,
 } from './api';
 
 // ─── Generic hook factory ────────────────────────────────────────────────────
@@ -177,6 +178,10 @@ export function useSearch(query, { minChars = 1, limit = 10 } = {}) {
  */
 export function useDashboardStats() {
   return useApiCall(getDashboardStats, []);
+}
+
+export function useSiteSettings() {
+  return useApiCall(getSiteSettings, []);
 }
 
 /**

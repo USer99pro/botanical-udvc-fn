@@ -134,9 +134,9 @@ export function useUrlTableSync({ defaultPageSize = 10, enabled = true } = {}) {
     window.addEventListener('popstate', handlePopState);
 
     return () => {
-      unsubPagination();
-      unsubSorting();
-      unsubFilter();
+      unsubPagination.unsubscribe();
+      unsubSorting.unsubscribe();
+      unsubFilter.unsubscribe();
       window.removeEventListener('popstate', handlePopState);
     };
   }, [enabled, defaultPageSize, pagination, sorting, globalFilter]);

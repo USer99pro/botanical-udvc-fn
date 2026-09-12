@@ -1,9 +1,10 @@
 import React from 'react';
-import { usePlants, useDailyFact } from '../services/hooks';
+import { usePlants, useDailyFact, useSiteSettings } from '../services/hooks';
 
 export default function HomePage({ onNavigate, onSelectPlant, onOpenSearch }) {
   const { data: plantsData, loading: plantsLoading } = usePlants({ limit: 4 });
   const { data: dailyFact } = useDailyFact();
+  const { data: siteSettings } = useSiteSettings();
 
   const handleNav = (page) => {
     if (onNavigate) onNavigate(page);
@@ -12,6 +13,9 @@ export default function HomePage({ onNavigate, onSelectPlant, onOpenSearch }) {
   const plants = plantsData?.plants || [];
   const primaryPlant = plants[0];
   const secondaryPlants = plants.slice(1, 4);
+  const homeVideos = Array.isArray(siteSettings?.home_videos) ? siteSettings.home_videos : [];
+  const homeResources = Array.isArray(siteSettings?.home_resources) ? siteSettings.home_resources : [];
+  const hasImportedContent = homeVideos.length > 0 || homeResources.length > 0 || siteSettings?.home_director;
 
   return (
     <div className="min-h-screen bg-background text-on-background">
@@ -92,6 +96,73 @@ export default function HomePage({ onNavigate, onSelectPlant, onOpenSearch }) {
                 <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </button>
             </div>
+          </section>
+        )}
+
+        {/* Imported content from the official Google Sites source */}
+        {hasImportedContent && (
+          <section className="space-y-8" aria-labelledby="official-content-title">
+            <div className="flex flex-col gap-1">
+              <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">
+                ข้อมูลจากเว็บไซต์ต้นแบบ
+              </span>
+              <h2 id="official-content-title" className="font-display-lg text-3xl md:text-4xl text-primary">
+                สื่อและเอกสารงานสวนพฤกษศาสตร์
+              </h2>
+              {siteSettings?.home_director && (
+                <p className="text-sm text-on-surface-variant">
+                  ผู้อำนวยการวิทยาลัยอาชีวศึกษาอุดรธานี: {siteSettings.home_director}
+                </p>
+              )}
+            </div>
+
+            {homeVideos.length > 0 && (
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {homeVideos.map((video) => (
+                  <a
+                    key={video.url}
+                    href={video.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm transition-shadow hover:shadow-lg"
+                  >
+                    <div className="flex aspect-video items-center justify-center bg-primary-container text-primary-fixed">
+                      <span className="material-symbols-outlined text-5xl transition-transform group-hover:scale-110">play_circle</span>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="line-clamp-2 text-sm font-semibold text-primary">{video.title}</h3>
+                      <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-secondary">
+                        รับชมบน YouTube
+                        <span className="material-symbols-outlined text-sm">open_in_new</span>
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {homeResources.length > 0 && (
+              <div className="rounded-2xl border border-outline-variant/30 bg-surface-container-low p-6">
+                <h3 className="mb-4 flex items-center gap-2 font-headline-sm text-lg font-bold text-primary">
+                  <span className="material-symbols-outlined text-secondary">folder_open</span>
+                  เอกสารและแหล่งข้อมูล
+                </h3>
+                <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                  {homeResources.map((resource) => (
+                    <a
+                      key={resource.url}
+                      href={resource.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between gap-3 rounded-xl bg-surface-container-lowest px-4 py-3 text-sm text-on-surface transition-colors hover:bg-secondary-container/40"
+                    >
+                      <span>{resource.title}</span>
+                      <span className="material-symbols-outlined shrink-0 text-base text-secondary">open_in_new</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
           </section>
         )}
 
