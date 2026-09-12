@@ -8,6 +8,7 @@ export default function Navbar({
   onOpenLogin,
   onLogout,
   isAdmin = false,
+  isMember = false,
   currentUser = null,
   className = '',
 }) {
@@ -278,7 +279,7 @@ export default function Navbar({
       label: 'จัดการระบบ',
       type: 'dropdown',
       icon: 'admin_panel_settings',
-      badge: currentUser?.role === 'admin' ? 'Admin' : 'Staff',
+      badge: 'Admin',
       align: 'right',
       items: [
         {
@@ -301,6 +302,24 @@ export default function Navbar({
           description: 'เพิ่ม แก้ไข ระงับ หรือลบสมาชิกในระบบ',
           icon: 'manage_accounts',
           pageId: 'userManagement',
+        },
+      ],
+    });
+  } else if (isMember) {
+    navSections.push({
+      id: 'member-management',
+      label: 'ส่งข้อมูล',
+      type: 'dropdown',
+      icon: 'post_add',
+      badge: 'สมาชิก',
+      align: 'right',
+      items: [
+        {
+          id: 'addPlant',
+          title: 'เพิ่มข้อมูลพรรณไม้',
+          description: 'กรอกแบบบันทึกทะเบียนพรรณไม้ ก.7-003 หรือ import CSV/Excel',
+          icon: 'add_circle',
+          pageId: 'addPlant',
         },
       ],
     });
@@ -464,7 +483,7 @@ export default function Navbar({
           )}
 
           {/* Auth Section: Login/Register entry point or Logged In State */}
-          {!isAdmin ? (
+          {!isMember ? (
             <div className="flex items-center gap-1 shrink-0">
               <button
                 type="button"
@@ -488,7 +507,7 @@ export default function Navbar({
                   {currentUser?.role === 'admin' ? 'shield_person' : 'badge'}
                 </span>
                 <span className="hidden sm:inline truncate max-w-[120px]">
-                  {currentUser?.role === 'admin' ? 'ผู้ดูแลระบบ' : 'เจ้าหน้าที่'}
+                  {isAdmin ? 'ผู้ดูแลระบบ' : 'สมาชิก'}
                 </span>
               </div>
               <button

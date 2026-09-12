@@ -5,7 +5,12 @@ import VideoPlayer from '../components/common/VideoPlayer';
 import NewsDetailModal from '../components/modals/NewsDetailModal';
 import AddNewsModal from '../components/modals/AddNewsModal';
 
-export default function NewsPage({ onNavigate: _onNavigate, isAdmin: _isAdmin = false }) {
+export default function NewsPage({
+  onNavigate: _onNavigate,
+  isAdmin: _isAdmin = false,
+  isMember = false,
+  onRequireMembership,
+}) {
   // State for filters
   const [selectedRatio, setSelectedRatio] = useState('all'); // 'all', '16:9', '9:16', '4:3'
   const [selectedMediaType, setSelectedMediaType] = useState('all'); // 'all', 'youtube', 'tiktok', 'banner'
@@ -43,6 +48,14 @@ export default function NewsPage({ onNavigate: _onNavigate, isAdmin: _isAdmin = 
     refetch();
   };
 
+  const handleOpenAdd = () => {
+    if (!isMember) {
+      if (onRequireMembership) onRequireMembership();
+      return;
+    }
+    setIsAddOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-background text-on-background pb-20">
       {/* ─── Hero Showcase Section ───────────────────────────────────── */}
@@ -72,11 +85,11 @@ export default function NewsPage({ onNavigate: _onNavigate, isAdmin: _isAdmin = 
             <div className="flex items-center gap-2 shrink-0">
               <button
                 type="button"
-                onClick={() => setIsAddOpen(true)}
+                onClick={handleOpenAdd}
                 className="px-5 py-2.5 rounded-full bg-primary text-on-primary text-xs font-semibold hover:bg-secondary transition-all shadow-sm flex items-center gap-2 cursor-pointer"
               >
                 <span className="material-symbols-outlined text-base">add_circle</span>
-                <span>เพิ่มข่าวสาร / คลิปใหม่</span>
+                <span>{isMember ? 'เพิ่มข่าวสาร / คลิปใหม่' : 'สมัครสมาชิกเพื่อเพิ่มข้อมูล'}</span>
               </button>
             </div>
           </div>

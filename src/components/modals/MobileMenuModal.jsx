@@ -5,6 +5,7 @@ export default function MobileMenuModal({
   onClose,
   onNavigate,
   isAdmin = false,
+  isMember = false,
   currentUser = null,
   onOpenLogin,
   onLogout,
@@ -258,16 +259,28 @@ export default function MobileMenuModal({
               )}
             </div>
           )}
+          {!isAdmin && isMember && (
+            <div className="border border-secondary/40 rounded-2xl overflow-hidden bg-secondary/5 mt-4">
+              <button
+                type="button"
+                onClick={() => handleNav('addPlant')}
+                className="w-full flex items-center gap-2 p-3 text-primary font-bold text-xs hover:bg-secondary/15 transition-colors cursor-pointer text-left"
+              >
+                <span className="material-symbols-outlined text-secondary text-lg">add_circle</span>
+                <span>เพิ่มข้อมูลพรรณไม้ (สมาชิก)</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Footer actions: Admin Login / Logout */}
         <div className="p-4 border-t border-outline-variant/20 bg-surface-container/40">
-          {isAdmin ? (
+          {isMember ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-secondary text-lg">verified_user</span>
                 <span className="text-xs font-semibold text-primary truncate max-w-[150px]">
-                  {currentUser?.name || 'ผู้ดูแลระบบ'}
+                  {currentUser?.name || (isAdmin ? 'ผู้ดูแลระบบ' : 'สมาชิก')}
                 </span>
               </div>
               <button

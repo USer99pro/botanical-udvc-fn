@@ -78,7 +78,7 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess, onNav
             เข้าสู่ระบบ
           </h2>
           <p className="font-body-md text-xs text-on-surface-variant mt-1">
-            สำหรับผู้ดูแลระบบและเจ้าหน้าที่งานสวนพฤกษศาสตร์โรงเรียน
+            สำหรับสมาชิก ผู้ดูแลระบบ และเจ้าหน้าที่งานสวนพฤกษศาสตร์โรงเรียน
           </p>
         </div>
 

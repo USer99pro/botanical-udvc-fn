@@ -121,6 +121,7 @@ export default function App() {
   });
 
   const isAdmin = String(currentUser?.role || '').toLowerCase() === 'admin';
+  const isMember = Boolean(currentUser);
 
   const handleLoginSuccess = (user) => {
     setCurrentUser(user);
@@ -197,6 +198,51 @@ export default function App() {
     );
   };
 
+  const renderMemberGuard = (pageName) => {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center p-6">
+        <div className="max-w-md w-full bg-surface-container-lowest dark:bg-surface-dim rounded-3xl p-8 shadow-xl border border-outline-variant/30 text-center animate-fade-in">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-secondary/15 flex items-center justify-center text-secondary">
+            <span className="material-symbols-outlined text-4xl">person_add</span>
+          </div>
+          <h2 className="font-headline-sm text-2xl font-bold text-primary mb-2">
+            สมัครสมาชิกก่อนเพิ่มข้อมูล
+          </h2>
+          <p className="text-sm text-on-surface-variant mb-2">
+            {pageName} สงวนสิทธิ์สำหรับสมาชิกที่สมัครและเข้าสู่ระบบแล้วเท่านั้น
+          </p>
+          <p className="text-xs text-secondary font-medium mb-6">
+            ข้อมูลที่ส่งเข้าระบบจะอยู่ภายใต้การตรวจสอบของผู้ดูแลระบบ
+          </p>
+          <div className="flex flex-col gap-3">
+            <button
+              type="button"
+              onClick={() => navigateTo('register')}
+              className="w-full py-3 px-6 rounded-full bg-primary text-on-primary font-semibold text-sm hover:bg-secondary transition-colors cursor-pointer shadow-sm flex items-center justify-center gap-2"
+            >
+              <span className="material-symbols-outlined text-lg">person_add</span>
+              <span>สมัครสมาชิก</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsLoginOpen(true)}
+              className="w-full py-2.5 px-6 rounded-full border border-outline-variant/40 hover:bg-surface-container text-on-surface-variant font-medium text-xs transition-colors cursor-pointer"
+            >
+              มีบัญชีแล้ว เข้าสู่ระบบ
+            </button>
+            <button
+              type="button"
+              onClick={() => navigateTo('home')}
+              className="text-xs text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
+            >
+              กลับสู่หน้าหลัก
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderCurrentPage = () => {
     switch (currentPage) {
       // Existing Pages
@@ -234,8 +280,8 @@ export default function App() {
           />
         );
       case 'addPlant':
-        if (!isAdmin) {
-          return renderAdminGuard('หน้าเพิ่มข้อมูลพรรณไม้ใหม่ (Add Plant)');
+        if (!isMember) {
+          return renderMemberGuard('หน้าเพิ่มข้อมูลพรรณไม้ใหม่');
         }
         return (
           <AddPlantPage 
@@ -275,6 +321,8 @@ export default function App() {
           <NewsPage 
             onNavigate={navigateTo}
             isAdmin={isAdmin}
+            isMember={isMember}
+            onRequireMembership={() => setIsLoginOpen(true)}
           />
         );
       case 'about':
@@ -433,6 +481,7 @@ export default function App() {
         onOpenLogin={() => setIsLoginOpen(true)}
         onLogout={handleLogout}
         isAdmin={isAdmin}
+        isMember={isMember}
         currentUser={currentUser}
       />
 
@@ -454,6 +503,7 @@ export default function App() {
         onClose={() => setIsMobileMenuOpen(false)}
         onNavigate={navigateTo}
         isAdmin={isAdmin}
+        isMember={isMember}
         currentUser={currentUser}
         onOpenLogin={() => setIsLoginOpen(true)}
         onLogout={handleLogout}
